@@ -5,7 +5,27 @@ All notable changes to **massCode Web** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2025-09-16
+
+### Added
+- **Regex Search Support**: Added full regular expression support to search functionality with case-sensitive matching
+- **Configurable Highlight Limits**: Added `SEARCH_HIGHLIGHT_LIMIT` environment variable to control how many search matches are highlighted per snippet (default: 3, range: -1 to MAX_SAFE_INTEGER, -1 = unlimited)
+- **Visual Search Highlighting**: Implemented visual highlighting of search matches using Prism.js keep-markup plugin for better code readability
+- **Enhanced Multi-Fragment Search**: Improved search functionality to work seamlessly with tabbed code fragments
+- **Favicon Updates**: Updated favicon design to match the header logo and removed distracting green X element
+
+### Changed
+- **Search Behavior**: Search is now case-sensitive by default and supports regex patterns
+- **Highlight Limiting**: Limited search result highlighting to first 3 matches per snippet (configurable)
+- **Docker Configuration**: Reverted to using pre-built Docker image for simpler deployment
+- **Documentation**: Simplified README with cleaner configuration examples
+
+### Technical Details
+- Modified `highlightSearchMatches()` function to support configurable limits
+- Added `matchesQuery()` function with regex support and case-sensitive matching
+- Implemented runtime environment variable injection in Docker container
+- Updated nginx configuration for environment variable access
+- Enhanced search logic to work with multi-fragment snippets and tabbed interface
 
 ## [1.0.0-rc.5] - 2025-09-16
 
