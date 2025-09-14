@@ -5,7 +5,7 @@ A modern web interface for browsing and searching your massCode snippets with sy
 ![Docker](https://img.shields.io/badge/Docker-Ready-green?style=flat-square&logo=docker)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
-## � Table of Contents
+## 📜 Table of Contents
 
 - [📸 Screenshot](#-screenshot)
 - [💡 Motivation](#-motivation)
@@ -20,7 +20,7 @@ A modern web interface for browsing and searching your massCode snippets with sy
 - [📄 License](#-license)
 - [📈 Star History](#-star-history)
 
-## �📸 Screenshot
+## 📸 Screenshot
 
 ![massCode Web Interface](img/masscode-screenshot.png)
 
