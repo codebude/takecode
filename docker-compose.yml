@@ -4,5 +4,5 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./db.json:/usr/share/nginx/html/data/db.json:ro
+      - ./db.json:/data/db.json:ro
     restart: unless-stopped
