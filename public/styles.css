@@ -1,6 +1,12 @@
 /* Custom styles for tree and sidebar */
 #sidebar.sidebar-hidden {
-    display: none;
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#sidebar {
+    transition: width 0.3s ease-in-out, padding 0.3s ease-in-out;
 }
 
 .tree {
