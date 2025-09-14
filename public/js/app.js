@@ -165,6 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const initialBatch = currentSnippets.slice(0, batchSize);
             renderSnippets(initialBatch, true);
             loadedCount += initialBatch.length;
+
+            // Load more snippets if needed to fill viewport
+            setTimeout(() => {
+                loadMoreIfNeeded();
+            }, 100);
             renderTree(data.folders, activeSnippets);
         })
         .catch(error => {
@@ -263,9 +268,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         loadedCount = 0;
-        const initialBatch = currentSnippets.slice(0, batchSize);
-        renderSnippets(initialBatch, true);
-        loadedCount += initialBatch.length;
+
+        // For search results, load all at once since users expect to see all results
+        // For no search, use batch loading
+        if (query.trim() === '') {
+            const initialBatch = currentSnippets.slice(0, batchSize);
+            renderSnippets(initialBatch, true);
+            loadedCount += initialBatch.length;
+
+            // Load more snippets if needed to fill viewport
+            setTimeout(() => {
+                loadMoreIfNeeded();
+            }, 100);
+        } else {
+            // Load all search results at once
+            renderSnippets(currentSnippets, true);
+            loadedCount = currentSnippets.length;
+        }
 
         // Show/hide clear button
         clearSearchButton.style.display = e.target.value ? 'block' : 'none';
@@ -277,22 +296,75 @@ document.addEventListener('DOMContentLoaded', () => {
             e.target.classList.toggle('open');
         } else if (e.target.classList.contains('snippet-item')) {
             const snippetId = e.target.dataset.snippetId;
+            ensureSnippetLoadedAndScroll(snippetId);
+        }
+    });
+
+    // Function to ensure a snippet is loaded and scroll to it
+    function ensureSnippetLoadedAndScroll(snippetId) {
+        const snippetIndex = currentSnippets.findIndex(s => s.id === snippetId);
+        if (snippetIndex === -1) return; // Snippet not in current results
+
+        // If snippet is already loaded, just scroll to it
+        if (snippetIndex < loadedCount) {
             const element = document.getElementById(`snippet-${snippetId}`);
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth' });
             }
+            return;
         }
-    });
+
+        // Load all snippets up to and including the target snippet
+        const snippetsToLoad = currentSnippets.slice(loadedCount, snippetIndex + 1);
+        renderSnippets(snippetsToLoad, false);
+        loadedCount += snippetsToLoad.length;
+
+        // Now scroll to the snippet
+        setTimeout(() => {
+            const element = document.getElementById(`snippet-${snippetId}`);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 100);
+    }
+
+    // Function to load more snippets if needed to fill viewport
+    function loadMoreIfNeeded() {
+        const container = snippetsContainer;
+        const scrollHeight = container.scrollHeight;
+        const clientHeight = container.clientHeight;
+
+        // If content doesn't fill viewport and we haven't loaded too many initially, load one more batch
+        if (scrollHeight <= clientHeight && loadedCount < currentSnippets.length && loadedCount < batchSize * 3) {
+            const nextBatch = currentSnippets.slice(loadedCount, loadedCount + batchSize);
+            renderSnippets(nextBatch, false);
+            loadedCount += nextBatch.length;
+
+            // Check once more if still needed (but limit to prevent loading everything)
+            setTimeout(() => {
+                loadMoreIfNeeded();
+            }, 50);
+        }
+    }
 
     // Infinite scroll
+    let scrollTimeout;
     snippetsContainer.addEventListener('scroll', () => {
-        if (snippetsContainer.scrollTop + snippetsContainer.clientHeight >= snippetsContainer.scrollHeight - 100) {
-            if (loadedCount < currentSnippets.length) {
-                const nextBatch = currentSnippets.slice(loadedCount, loadedCount + batchSize);
-                renderSnippets(nextBatch, false);
-                loadedCount += nextBatch.length;
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            const scrollTop = snippetsContainer.scrollTop;
+            const clientHeight = snippetsContainer.clientHeight;
+            const scrollHeight = snippetsContainer.scrollHeight;
+
+            // Load more when within 300px of bottom
+            if (scrollTop + clientHeight >= scrollHeight - 300) {
+                if (loadedCount < currentSnippets.length) {
+                    const nextBatch = currentSnippets.slice(loadedCount, loadedCount + batchSize);
+                    renderSnippets(nextBatch, false);
+                    loadedCount += nextBatch.length;
+                }
             }
-        }
+        }, 100);
     });
 
     // Function to check if text matches query (supports regex)
@@ -387,7 +459,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     code.className = `language-${getPrismLanguage(content.language)}`;
                     // Use highlighted content if available, otherwise use original content
                     const displayContent = highlightedContent.highlightedValue || content.value;
-                    code.innerHTML = displayContent;
+                    // For HTML content, encode HTML entities to prevent rendering
+                    const finalContent = getPrismLanguage(content.language) === 'html'
+                        ? displayContent.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
+                        : displayContent;
+                    code.innerHTML = finalContent;
                     pre.appendChild(code);
 
                     // Add copy button
@@ -452,7 +528,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Use highlighted content if available, otherwise use original content
                     const highlightedContent = snippet.highlightedContent ? snippet.highlightedContent[index] : content;
                     const displayContent = highlightedContent.highlightedValue || content.value;
-                    code.innerHTML = displayContent;
+                    // For HTML content, encode HTML entities to prevent rendering
+                    const finalContent = getPrismLanguage(content.language) === 'html'
+                        ? displayContent.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
+                        : displayContent;
+                    code.innerHTML = finalContent;
                     pre.appendChild(code);
 
                     // Add copy button
