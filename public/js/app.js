@@ -311,16 +311,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function highlightSearchMatches(text, query) {
         if (!query.trim()) return text;
 
+        const highlightLimit = window.MASSCODE_CONFIG?.SEARCH_HIGHLIGHT_LIMIT ?? 3;
+
         try {
             // Try to use the query as a regex pattern
             const regex = new RegExp(`(${query})`, 'g'); // case-sensitive, global
             let matchCount = 0;
             return text.replace(regex, (match, group1) => {
                 matchCount++;
-                if (matchCount <= 3) {
+                if (highlightLimit === -1 || matchCount <= highlightLimit) {
                     return `<mark class="search-highlight">${group1}</mark>`;
                 }
-                return group1; // Return without highlighting for matches beyond 3
+                return group1; // Return without highlighting for matches beyond limit
             });
         } catch (error) {
             // If regex is invalid, escape special characters and search as literal string
@@ -329,10 +331,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let matchCount = 0;
             return text.replace(regex, (match, group1) => {
                 matchCount++;
-                if (matchCount <= 3) {
+                if (highlightLimit === -1 || matchCount <= highlightLimit) {
                     return `<mark class="search-highlight">${group1}</mark>`;
                 }
-                return group1; // Return without highlighting for matches beyond 3
+                return group1; // Return without highlighting for matches beyond limit
             });
         }
     }

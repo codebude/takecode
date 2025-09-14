@@ -62,6 +62,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/keep-markup/prism-keep-markup.min.js"></script>
+    <script>
+        // Set global config from environment variables
+        window.MASSCODE_CONFIG = {
+            SEARCH_HIGHLIGHT_LIMIT: parseInt('${SEARCH_HIGHLIGHT_LIMIT}') || 3
+        };
+    </script>
     <script type="module" src="js/app.js?v=__VERSION__"></script>
 </body>
 </html>
