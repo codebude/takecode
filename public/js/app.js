@@ -156,7 +156,11 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             dbData = data;
             const activeSnippets = data.snippets.filter(s => !s.isDeleted);
-            currentSnippets = activeSnippets;
+            // Initialize all snippets with first tab active
+            currentSnippets = activeSnippets.map(snippet => ({
+                ...snippet,
+                activeTabIndex: 0
+            }));
             loadedCount = 0;
             const initialBatch = currentSnippets.slice(0, batchSize);
             renderSnippets(initialBatch, true);
@@ -200,12 +204,41 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase();
         const activeSnippets = dbData.snippets.filter(s => !s.isDeleted);
-        const filteredSnippets = activeSnippets.filter(snippet =>
-            snippet.name.toLowerCase().includes(query) ||
-            snippet.description?.toLowerCase().includes(query) ||
-            snippet.content.some(content => content.value.toLowerCase().includes(query))
-        );
-        currentSnippets = filteredSnippets;
+
+        if (query.trim() === '') {
+            // No search query - show all snippets with first tab active
+            currentSnippets = activeSnippets.map(snippet => ({
+                ...snippet,
+                activeTabIndex: 0 // Always show first tab when no search
+            }));
+        } else {
+            // Filter snippets and determine which tab should be active
+            const filteredSnippets = activeSnippets.filter(snippet => {
+                // Check name
+                if (snippet.name.toLowerCase().includes(query)) {
+                    return true;
+                }
+                // Check description
+                if (snippet.description?.toLowerCase().includes(query)) {
+                    return true;
+                }
+                // Check content fragments
+                return snippet.content.some((content, index) => {
+                    if (content.value.toLowerCase().includes(query)) {
+                        // Store which tab should be active for this snippet
+                        snippet.activeTabIndex = index;
+                        return true;
+                    }
+                    return false;
+                });
+            }).map(snippet => ({
+                ...snippet,
+                activeTabIndex: snippet.activeTabIndex || 0 // Default to first tab if not set
+            }));
+
+            currentSnippets = filteredSnippets;
+        }
+
         loadedCount = 0;
         const initialBatch = currentSnippets.slice(0, batchSize);
         renderSnippets(initialBatch, true);
@@ -321,13 +354,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const tabPanels = document.createElement('div');
                 tabPanels.className = 'relative';
 
+                // Determine which tab should be active (from search results or default to first)
+                const activeTabIndex = snippet.activeTabIndex !== undefined ? snippet.activeTabIndex : 0;
+
                 snippet.content.forEach((content, index) => {
                     if (!content.value.trim()) return;
 
                     // Create tab button
                     const tabButton = document.createElement('button');
                     tabButton.className = `px-4 py-2 text-sm font-medium rounded-t-lg transition-colors ${
-                        index === 0
+                        index === activeTabIndex
                             ? 'bg-gray-100 text-gray-900 border-b-2 border-blue-500 dark:bg-gray-700 dark:text-white'
                             : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700'
                     }`;
@@ -336,7 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Create tab panel
                     const tabPanel = document.createElement('div');
-                    tabPanel.className = `tab-panel ${index === 0 ? 'block' : 'hidden'}`;
+                    tabPanel.className = `tab-panel ${index === activeTabIndex ? 'block' : 'hidden'}`;
                     tabPanel.dataset.tabIndex = index;
 
                     const pre = document.createElement('pre');
