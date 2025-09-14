@@ -3,10 +3,6 @@ name: Build and Push Docker Image
 on:
   workflow_dispatch:
     inputs:
-      branch:
-        description: 'Branch to build from'
-        required: true
-        type: string
       tag_as_latest:
         description: 'Tag image as latest'
         required: false
@@ -18,10 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout branch
+    - name: Checkout
       uses: actions/checkout@v4
-      with:
-        ref: ${{ inputs.branch }}
 
     - name: Get latest version tag
       id: get-tag
@@ -29,7 +23,7 @@ jobs:
         git fetch --tags
         LATEST_TAG=$(git tag | grep '^v[0-9]\+\.[0-9]\+\.[0-9]\+\(-rc\.[0-9]\+\)\?$' | sort -V | tail -1)
         if [ -z "$LATEST_TAG" ]; then
-          echo "No version tags found on branch ${{ inputs.branch }}"
+          echo "No version tags found"
           exit 1
         fi
         echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
