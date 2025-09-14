@@ -9,7 +9,7 @@ ENV VERSION=${VERSION}
 COPY public/ /usr/share/nginx/html/
 
 # Create symlink for cleaner volume mounting
-RUN mkdir -p /data && ln -s /data/db.json /usr/share/nginx/html/data/db.json
+RUN ln -s /data /usr/share/nginx/html/data
 
 # Replace version placeholder
 RUN sed -i "s/__VERSION__/${VERSION}/g" /usr/share/nginx/html/index.html
