@@ -1,0 +1,35 @@
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout
+*.md text
+*.txt text
+*.html text
+*.css text
+*.js text
+*.json text
+*.yml text
+*.yaml text
+
+# Declare files that will always have LF line endings on checkout
+*.md eol=lf
+*.txt eol=lf
+*.html eol=lf
+*.css eol=lf
+*.js eol=lf
+*.json eol=lf
+*.yml eol=lf
+*.yaml eol=lf
+*.sh eol=lf
+*.dockerfile eol=lf
+
+# Denote all files that are truly binary and should not be modified
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.woff binary
+*.woff2 binary
