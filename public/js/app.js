@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search');
     const snippetsContainer = document.getElementById('snippets-container');
     const sidebar = document.getElementById('sidebar');
-    const themeSelect = document.getElementById('theme-select');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+    const themeToggle = document.getElementById('theme-toggle');
     let dbData = null;
     let currentSnippets = [];
     let loadedCount = 0;
@@ -27,9 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let isDark = false;
         if (theme === 'dark') {
             html.classList.add('dark');
+            themeToggle.textContent = '🌙';
             isDark = true;
         } else if (theme === 'light') {
             html.classList.remove('dark');
+            themeToggle.textContent = '☀️';
             isDark = false;
         } else { // auto
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -40,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 html.classList.remove('dark');
                 isDark = false;
             }
+            themeToggle.textContent = '🌓';
         }
-        themeSelect.value = theme;
         setPrismTheme(isDark);
     }
 
@@ -49,9 +52,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'auto';
     applyTheme(savedTheme);
 
-    // Theme selector change
-    themeSelect.addEventListener('change', (e) => {
-        applyTheme(e.target.value);
+    // Theme toggle click
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = localStorage.getItem('theme') || 'auto';
+        let nextTheme;
+        if (currentTheme === 'auto') {
+            nextTheme = 'light';
+        } else if (currentTheme === 'light') {
+            nextTheme = 'dark';
+        } else {
+            nextTheme = 'auto';
+        }
+        applyTheme(nextTheme);
     });
 
     // Listen for system theme changes when in auto mode
@@ -69,8 +81,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Sidebar toggle
     window.toggleSidebar = function() {
-        sidebar.classList.toggle('sidebar-hidden');
+        // Check if we're on mobile (screen width < 768px)
+        const isMobile = window.innerWidth < 768;
+
+        if (isMobile) {
+            // Mobile: toggle overlay behavior
+            const isOpen = sidebar.classList.contains('sidebar-mobile-open');
+            if (isOpen) {
+                sidebar.classList.remove('sidebar-mobile-open');
+                sidebar.classList.add('sidebar-mobile-hidden');
+                sidebarBackdrop.classList.remove('show');
+            } else {
+                sidebar.classList.add('sidebar-mobile-open');
+                sidebar.classList.remove('sidebar-mobile-hidden');
+                sidebarBackdrop.classList.add('show');
+            }
+        } else {
+            // Desktop: toggle width behavior
+            sidebar.classList.toggle('sidebar-hidden');
+        }
     };
+
+    // Initialize sidebar state based on screen size
+    function initializeSidebar() {
+        const isMobile = window.innerWidth < 768;
+        if (isMobile) {
+            // Mobile: ensure mobile classes are set correctly and remove desktop classes
+            sidebar.classList.remove('sidebar-hidden');
+            sidebar.classList.add('sidebar-mobile-hidden');
+            sidebar.classList.remove('sidebar-mobile-open');
+            sidebarBackdrop.classList.remove('show');
+        } else {
+            // Desktop: remove all mobile classes and ensure desktop state
+            sidebar.classList.remove('sidebar-mobile-hidden');
+            sidebar.classList.remove('sidebar-mobile-open');
+            sidebarBackdrop.classList.remove('show');
+            // Don't automatically show sidebar on desktop - let user control it
+        }
+    }
+
+    // Initialize sidebar on load
+    initializeSidebar();
+
+    // Handle window resize
+    window.addEventListener('resize', initializeSidebar);
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+        const isMobile = window.innerWidth < 768;
+        if (isMobile && sidebar.classList.contains('sidebar-mobile-open')) {
+            // Check if click is outside sidebar
+            if (!sidebar.contains(e.target) && e.target.id !== 'sidebar-toggle') {
+                sidebar.classList.remove('sidebar-mobile-open');
+                sidebar.classList.add('sidebar-mobile-hidden');
+                sidebarBackdrop.classList.remove('show');
+            }
+        }
+    });
 
     // Clear search function
     window.clearSearch = function() {
