@@ -59,7 +59,7 @@
 }
 
 .tree .folder:hover {
-    color: #374151;
+    color: #1f2937;
 }
 
 .tree .folder:before {
@@ -89,7 +89,7 @@
 }
 
 .tree .snippet-item:hover {
-    background-color: rgba(107, 114, 128, 0.1);
+    background-color: rgba(156, 163, 175, 0.1);
     border-radius: 0.25rem;
 }
 
