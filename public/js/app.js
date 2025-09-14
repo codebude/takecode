@@ -1,3 +1,6 @@
+// Import language mapper
+import { getPrismLanguage } from './language-mapper.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search');
     const snippetsContainer = document.getElementById('snippets-container');
@@ -218,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const pre = document.createElement('pre');
                     pre.className = 'bg-gray-100 rounded p-4 overflow-x-auto mb-4 dark:bg-gray-900 relative';
                     const code = document.createElement('code');
-                    code.className = `language-${LanguageMapper.getPrismLanguage(content.language)}`;
+                    code.className = `language-${getPrismLanguage(content.language)}`;
                     code.textContent = content.value;
                     pre.appendChild(code);
 
