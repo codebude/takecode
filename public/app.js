@@ -172,6 +172,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             snippet.content.forEach(content => {
                 if (content.value.trim()) {
+                    // Add fragment name as subheading if multiple fragments
+                    if (snippet.content.length > 1 && content.label) {
+                        const subheading = document.createElement('h4');
+                        subheading.className = 'text-lg font-medium text-gray-700 mb-2 dark:text-gray-200';
+                        subheading.textContent = content.label;
+                        snippetDiv.appendChild(subheading);
+                    }
+
                     const pre = document.createElement('pre');
                     pre.className = 'bg-gray-100 rounded p-4 overflow-x-auto mb-4 dark:bg-gray-900 relative';
                     const code = document.createElement('code');
