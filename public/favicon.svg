@@ -3,6 +3,4 @@
   <path d="M10 12L22 12" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
   <path d="M10 16L18 16" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
   <path d="M10 20L20 20" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-  <path d="M14 10L18 14" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
-  <path d="M18 10L14 14" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
 </svg>
