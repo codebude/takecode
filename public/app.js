@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Load db.json
-    fetch('db.json')
+    fetch('data/db.json')
         .then(response => response.json())
         .then(data => {
             dbData = data;
