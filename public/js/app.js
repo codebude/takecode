@@ -206,34 +206,57 @@ document.addEventListener('DOMContentLoaded', () => {
         const activeSnippets = dbData.snippets.filter(s => !s.isDeleted);
 
         if (query.trim() === '') {
-            // No search query - show all snippets with first tab active
+            // No search query - show all snippets with first tab active and no highlighting
             currentSnippets = activeSnippets.map(snippet => ({
                 ...snippet,
-                activeTabIndex: 0 // Always show first tab when no search
+                activeTabIndex: 0, // Always show first tab when no search
+                highlightedContent: snippet.content.map(content => ({
+                    ...content,
+                    highlightedValue: content.value // No highlighting
+                }))
             }));
         } else {
             // Filter snippets and determine which tab should be active
             const filteredSnippets = activeSnippets.filter(snippet => {
+                let hasMatch = false;
+                let activeTabIndex = 0;
+
                 // Check name
                 if (snippet.name.toLowerCase().includes(query)) {
-                    return true;
+                    hasMatch = true;
                 }
                 // Check description
                 if (snippet.description?.toLowerCase().includes(query)) {
+                    hasMatch = true;
+                }
+
+                // Check content fragments and highlight matches
+                const highlightedContent = snippet.content.map((content, index) => {
+                    const highlightedValue = highlightSearchMatches(content.value, query);
+                    if (highlightedValue !== content.value && !hasMatch) {
+                        // This fragment contains matches and no other match found yet
+                        hasMatch = true;
+                        activeTabIndex = index;
+                    }
+                    return {
+                        ...content,
+                        highlightedValue: highlightedValue
+                    };
+                });
+
+                if (hasMatch) {
+                    snippet.activeTabIndex = activeTabIndex;
+                    snippet.highlightedContent = highlightedContent;
                     return true;
                 }
-                // Check content fragments
-                return snippet.content.some((content, index) => {
-                    if (content.value.toLowerCase().includes(query)) {
-                        // Store which tab should be active for this snippet
-                        snippet.activeTabIndex = index;
-                        return true;
-                    }
-                    return false;
-                });
+                return false;
             }).map(snippet => ({
                 ...snippet,
-                activeTabIndex: snippet.activeTabIndex || 0 // Default to first tab if not set
+                activeTabIndex: snippet.activeTabIndex || 0, // Default to first tab if not set
+                highlightedContent: snippet.highlightedContent || snippet.content.map(content => ({
+                    ...content,
+                    highlightedValue: content.value
+                }))
             }));
 
             currentSnippets = filteredSnippets;
@@ -271,6 +294,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // Function to highlight search matches in text
+    function highlightSearchMatches(text, query) {
+        if (!query.trim()) return text;
+
+        // Escape special regex characters in query
+        const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escapedQuery})`, 'gi');
+        return text.replace(regex, '<mark class="search-highlight">$1</mark>');
+    }
 
     function renderSnippets(snippets, clear = false) {
         if (clear) {
@@ -312,12 +345,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (snippet.content.length === 1) {
                 // Single fragment - render normally
                 const content = snippet.content[0];
+                const highlightedContent = snippet.highlightedContent ? snippet.highlightedContent[0] : content;
                 if (content.value.trim()) {
                     const pre = document.createElement('pre');
                     pre.className = 'bg-gray-100 rounded p-4 overflow-x-auto mb-4 dark:bg-gray-900 relative';
                     const code = document.createElement('code');
                     code.className = `language-${getPrismLanguage(content.language)}`;
-                    code.textContent = content.value;
+                    // Use highlighted content if available, otherwise use original content
+                    const displayContent = highlightedContent.highlightedValue || content.value;
+                    code.innerHTML = displayContent;
                     pre.appendChild(code);
 
                     // Add copy button
@@ -379,7 +415,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     pre.className = 'bg-gray-100 rounded p-4 overflow-x-auto dark:bg-gray-900 relative';
                     const code = document.createElement('code');
                     code.className = `language-${getPrismLanguage(content.language)}`;
-                    code.textContent = content.value;
+                    // Use highlighted content if available, otherwise use original content
+                    const highlightedContent = snippet.highlightedContent ? snippet.highlightedContent[index] : content;
+                    const displayContent = highlightedContent.highlightedValue || content.value;
+                    code.innerHTML = displayContent;
                     pre.appendChild(code);
 
                     // Add copy button

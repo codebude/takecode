@@ -137,3 +137,16 @@ pre.relative {
 .tab-panel.hidden {
     opacity: 0;
 }
+
+/* Search highlight styles */
+.search-highlight {
+    background-color: #fef3c7;
+    border-radius: 2px;
+    padding: 1px 2px;
+    box-shadow: 0 0 0 1px #f59e0b;
+}
+
+.dark .search-highlight {
+    background-color: #451a03;
+    box-shadow: 0 0 0 1px #d97706;
+}
