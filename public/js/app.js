@@ -208,16 +208,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 snippetDiv.appendChild(desc);
             }
 
-            snippet.content.forEach(content => {
+            // Render content - use tabs for multiple fragments
+            if (snippet.content.length === 1) {
+                // Single fragment - render normally
+                const content = snippet.content[0];
                 if (content.value.trim()) {
-                    // Add fragment name as subheading if multiple fragments
-                    if (snippet.content.length > 1 && content.label) {
-                        const subheading = document.createElement('h4');
-                        subheading.className = 'text-lg font-medium text-gray-700 mb-2 dark:text-gray-200';
-                        subheading.textContent = content.label;
-                        snippetDiv.appendChild(subheading);
-                    }
-
                     const pre = document.createElement('pre');
                     pre.className = 'bg-gray-100 rounded p-4 overflow-x-auto mb-4 dark:bg-gray-900 relative';
                     const code = document.createElement('code');
@@ -246,7 +241,96 @@ document.addEventListener('DOMContentLoaded', () => {
                     snippetDiv.appendChild(pre);
                     Prism.highlightElement(code);
                 }
-            });
+            } else {
+                // Multiple fragments - use tabs
+                const tabsContainer = document.createElement('div');
+                tabsContainer.className = 'mb-4';
+
+                // Tab navigation
+                const tabNav = document.createElement('div');
+                tabNav.className = 'flex space-x-1 mb-4 border-b border-gray-200 dark:border-gray-600';
+
+                // Tab panels container
+                const tabPanels = document.createElement('div');
+                tabPanels.className = 'relative';
+
+                snippet.content.forEach((content, index) => {
+                    if (!content.value.trim()) return;
+
+                    // Create tab button
+                    const tabButton = document.createElement('button');
+                    tabButton.className = `px-4 py-2 text-sm font-medium rounded-t-lg transition-colors ${
+                        index === 0
+                            ? 'bg-gray-100 text-gray-900 border-b-2 border-blue-500 dark:bg-gray-700 dark:text-white'
+                            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700'
+                    }`;
+                    tabButton.textContent = content.label || `Fragment ${index + 1}`;
+                    tabButton.dataset.tabIndex = index;
+
+                    // Create tab panel
+                    const tabPanel = document.createElement('div');
+                    tabPanel.className = `tab-panel ${index === 0 ? 'block' : 'hidden'}`;
+                    tabPanel.dataset.tabIndex = index;
+
+                    const pre = document.createElement('pre');
+                    pre.className = 'bg-gray-100 rounded p-4 overflow-x-auto dark:bg-gray-900 relative';
+                    const code = document.createElement('code');
+                    code.className = `language-${getPrismLanguage(content.language)}`;
+                    code.textContent = content.value;
+                    pre.appendChild(code);
+
+                    // Add copy button
+                    const copyButton = document.createElement('button');
+                    copyButton.className = 'copy-to-clipboard-button';
+                    copyButton.innerHTML = '📋';
+                    copyButton.title = 'Copy to clipboard';
+                    copyButton.onclick = async () => {
+                        try {
+                            await navigator.clipboard.writeText(content.value);
+                            copyButton.innerHTML = '✅';
+                            setTimeout(() => copyButton.innerHTML = '📋', 2000);
+                        } catch (err) {
+                            console.error('Failed to copy: ', err);
+                            copyButton.innerHTML = '❌';
+                            setTimeout(() => copyButton.innerHTML = '📋', 2000);
+                        }
+                    };
+                    pre.appendChild(copyButton);
+
+                    tabPanel.appendChild(pre);
+                    Prism.highlightElement(code);
+
+                    // Tab switching functionality
+                    tabButton.addEventListener('click', () => {
+                        // Update tab buttons
+                        tabNav.querySelectorAll('button').forEach(btn => {
+                            btn.className = btn.className.replace(
+                                'bg-gray-100 text-gray-900 border-b-2 border-blue-500 dark:bg-gray-700 dark:text-white',
+                                'text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700'
+                            );
+                        });
+                        tabButton.className = tabButton.className.replace(
+                            'text-gray-500 hover:text-gray-700 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700',
+                            'bg-gray-100 text-gray-900 border-b-2 border-blue-500 dark:bg-gray-700 dark:text-white'
+                        );
+
+                        // Update tab panels
+                        tabPanels.querySelectorAll('.tab-panel').forEach(panel => {
+                            panel.classList.add('hidden');
+                            panel.classList.remove('block');
+                        });
+                        tabPanel.classList.remove('hidden');
+                        tabPanel.classList.add('block');
+                    });
+
+                    tabNav.appendChild(tabButton);
+                    tabPanels.appendChild(tabPanel);
+                });
+
+                tabsContainer.appendChild(tabNav);
+                tabsContainer.appendChild(tabPanels);
+                snippetDiv.appendChild(tabsContainer);
+            }
 
             snippetsContainer.appendChild(snippetDiv);
         });
