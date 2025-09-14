@@ -5,7 +5,13 @@ A modern web interface for browsing and searching your massCode snippets with sy
 ![Docker](https://img.shields.io/badge/Docker-Ready-green?style=flat-square&logo=docker)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
-## 💡 Motivation
+## � Screenshot
+
+![massCode Web Interface](img/masscode-screenshot.png)
+
+*Browse your massCode snippets with a clean, modern web interface featuring syntax highlighting, search, and tabbed code fragments.*
+
+## �💡 Motivation
 
 I love [massCode](https://masscode.io/) - it's an amazing code snippet manager that helps me organize and access my code snippets efficiently. However, sometimes I work on devices where I can't install the desktop client (like company laptops, shared computers, or restricted environments). To still have access to my snippets, I created massCode Web - a lightweight web interface that works with massCode's database files.
 
