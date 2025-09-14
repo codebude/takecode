@@ -1,17 +1,17 @@
-# MassCode Web
+# massCode Web
 
-A modern web interface for browsing and searching your MassCode snippets with syntax highlighting, themes, and copy-to-clipboard functionality.
+A modern web interface for browsing and searching your massCode snippets with syntax highlighting, themes, and copy-to-clipboard functionality.
 
 ![Docker](https://img.shields.io/badge/Docker-Ready-green?style=flat-square&logo=docker)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
 ## 💡 Motivation
 
-I love [MassCode](https://masscode.io/) - it's an amazing code snippet manager that helps me organize and access my code snippets efficiently. However, sometimes I work on devices where I can't install the desktop client (like company laptops, shared computers, or restricted environments). To still have access to my snippets, I created MassCode Web - a lightweight web interface that works with MassCode's database files.
+I love [massCode](https://masscode.io/) - it's an amazing code snippet manager that helps me organize and access my code snippets efficiently. However, sometimes I work on devices where I can't install the desktop client (like company laptops, shared computers, or restricted environments). To still have access to my snippets, I created massCode Web - a lightweight web interface that works with massCode's database files.
 
 ## ⚠️ Affiliation & Disclaimer
 
-**This project is not affiliated with MassCode in any way.** I'm just a happy user of MassCode and a developer with passion who wanted to extend the functionality for my own use cases. This project works with MassCode's `db.json` database files, but besides that, there are no other touchpoints or official connections with the MassCode project or its developers.
+**This project is not affiliated with massCode in any way.** I'm just a happy user of massCode and a developer with passion who wanted to extend the functionality for my own use cases. This project works with massCode's `db.json` database files, but besides that, there are no other touchpoints or official connections with the massCode project or its developers.
 
 ## ✨ Features
 
@@ -24,9 +24,9 @@ I love [MassCode](https://masscode.io/) - it's an amazing code snippet manager t
 
 ## 🚀 Quick Start
 
-### Finding Your MassCode Database
+### Finding Your massCode Database
 
-MassCode Web works by reading your existing MassCode `db.json` file. Here's how to locate it:
+massCode Web works by reading your existing massCode `db.json` file. Here's how to locate it:
 
 #### On Different Operating Systems:
 
@@ -34,11 +34,11 @@ MassCode Web works by reading your existing MassCode `db.json` file. Here's how 
 - **Windows**: `%APPDATA%\masscode\db.json` (usually `C:\Users\<username>\AppData\Roaming\masscode\db.json`)
 - **Linux**: `~/.config/masscode/db.json`
 
-For more details, check the [MassCode documentation on data storage](https://masscode.io/docs/data-storage).
+For more details, check the [massCode documentation on data storage](https://masscode.io/docs/data-storage).
 
 #### Shared/Network Databases
 
-You can also use MassCode Web with databases stored on network drives or shared locations. Simply mount the network drive and point the volume mapping to the shared `db.json` file path.
+You can also use massCode Web with databases stored on network drives or shared locations. Simply mount the network drive and point the volume mapping to the shared `db.json` file path.
 
 ### Using Docker Compose (Recommended)
 
@@ -48,7 +48,7 @@ You can also use MassCode Web with databases stored on network drives or shared 
    ```
 
 2. **Edit the volume mapping**:
-   Open `docker-compose.yml` and update the volume path to point to your local MassCode `db.json` file:
+   Open `docker-compose.yml` and update the volume path to point to your local massCode `db.json` file:
    ```yaml
    volumes:
      - /path/to/your/masscode/db.json:/data/db.json:ro
@@ -73,7 +73,7 @@ volumes:
   - ./db.json:/data/db.json:ro
 ```
 
-**Important**: Update the left side (`./db.json`) to the actual path of your MassCode database file. The volume is read-only to prevent accidental modifications to your data.
+**Important**: Update the left side (`./db.json`) to the actual path of your massCode database file. The volume is read-only to prevent accidental modifications to your data.
 
 ### Manual Docker Run
 
@@ -81,9 +81,9 @@ volumes:
 docker run -d -p 8080:80 -v /path/to/your/db.json:/data/db.json:ro ghcr.io/codebude/masscode-web:latest
 ```
 
-## 🎯 What is MassCode?
+## 🎯 What is massCode?
 
-This project is a web frontend for [MassCode](https://masscode.io/), the ultimate code snippet manager for developers. MassCode is a free and open-source code snippets manager, built with Electron & Vue.js.
+This project is a web frontend for [massCode](https://masscode.io/), the ultimate code snippet manager for developers. massCode is a free and open-source code snippets manager, built with Electron & Vue.js.
 
 ## 🤝 Contributing
 
@@ -98,7 +98,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Try MassCode Web today and supercharge your snippet management! 🚀**
+**Try massCode Web today and supercharge your snippet management! 🚀**
 
 ## 📈 Star History
 
