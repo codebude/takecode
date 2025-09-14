@@ -222,11 +222,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 let activeTabIndex = 0;
 
                 // Check name
-                if (snippet.name.toLowerCase().includes(query)) {
+                if (matchesQuery(snippet.name, query)) {
                     hasMatch = true;
                 }
                 // Check description
-                if (snippet.description?.toLowerCase().includes(query)) {
+                if (snippet.description && matchesQuery(snippet.description, query)) {
                     hasMatch = true;
                 }
 
@@ -295,14 +295,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Function to check if text matches query (supports regex)
+    function matchesQuery(text, query) {
+        if (!query.trim()) return false;
+        try {
+            const regex = new RegExp(query, 'i'); // case-insensitive
+            return regex.test(text);
+        } catch (error) {
+            // If regex is invalid, fall back to literal string search
+            return text.toLowerCase().includes(query.toLowerCase());
+        }
+    }
+
     // Function to highlight search matches in text
     function highlightSearchMatches(text, query) {
         if (!query.trim()) return text;
 
-        // Escape special regex characters in query
-        const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`(${escapedQuery})`, 'gi');
-        return text.replace(regex, '<mark class="search-highlight">$1</mark>');
+        try {
+            // Try to use the query as a regex pattern
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<mark class="search-highlight">$1</mark>');
+        } catch (error) {
+            // If regex is invalid, escape special characters and search as literal string
+            const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escapedQuery})`, 'gi');
+            return text.replace(regex, '<mark class="search-highlight">$1</mark>');
+        }
     }
 
     function renderSnippets(snippets, clear = false) {
