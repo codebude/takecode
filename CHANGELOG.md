@@ -5,6 +5,16 @@ All notable changes to **massCode Web** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2025-09-16
+
+### Fixed
+- **Semantic Versioning in CI Pipeline**: Fixed version tag selection logic to properly prioritize releases over pre-releases according to semantic versioning standards
+- **Docker Image Tagging**: Corrected CI/CD pipeline to select `v1.0.0` instead of `v1.0.0-rc.6` when both exist
+
+### Technical Details
+- Updated `.github/workflows/docker-build.yml` to prefer release versions over release candidates
+- Fixed version comparison logic to respect semantic versioning hierarchy
+
 ## [1.0.0] - 2025-09-16
 
 ### Added
