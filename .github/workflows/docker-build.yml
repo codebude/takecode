@@ -1,0 +1,64 @@
+name: Build and Push Docker Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build from'
+        required: true
+        default: 'release-v1'
+        type: string
+      tag_as_latest:
+        description: 'Tag image as latest'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.branch }}
+
+    - name: Get latest tag
+      id: get-tag
+      run: |
+        git fetch --tags
+        LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+        if [ -z "$LATEST_TAG" ]; then
+          echo "No tags found on branch ${{ inputs.branch }}"
+          exit 1
+        fi
+        echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+
+    - name: Checkout tag
+      run: |
+        git checkout ${{ steps.get-tag.outputs.tag }}
+
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ghcr.io/${{ github.repository }}
+        tags: |
+          type=raw,value=${{ steps.get-tag.outputs.tag }}
+          type=raw,value=latest,enable=${{ inputs.tag_as_latest }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
