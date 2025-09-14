@@ -1,8 +1,11 @@
 services:
   masscode-web:
-    image: ghcr.io/codebude/masscode-web:latest
+    build:
+      context: .
     ports:
       - "8080:80"
     volumes:
       - ./db.json:/data/db.json:ro
+    environment:
+      - SEARCH_HIGHLIGHT_LIMIT=${SEARCH_HIGHLIGHT_LIMIT:-3}
     restart: unless-stopped
