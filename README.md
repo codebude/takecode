@@ -96,6 +96,44 @@ volumes:
 
 **Important**: Update the left side (`./db.json`) to the actual path of your massCode database file. The volume is read-only to prevent accidental modifications to your data.
 
+### Configuration Options
+
+massCode Web supports several environment variables for customization:
+
+#### SEARCH_HIGHLIGHT_LIMIT
+
+Controls how many search matches are highlighted per snippet.
+
+- **Default**: `3`
+- **Range**: `-1` to `9007199254740991` (JavaScript's `Number.MAX_SAFE_INTEGER`)
+- **Special value**: `-1` means highlight all matches (no limit)
+
+**Examples:**
+
+```yaml
+# Highlight only the first 5 matches per snippet
+environment:
+  - SEARCH_HIGHLIGHT_LIMIT=5
+
+# Highlight all matches (no limit)
+environment:
+  - SEARCH_HIGHLIGHT_LIMIT=-1
+
+# Use default (3 matches)
+# No environment variable needed
+```
+
+**Usage with Docker Compose:**
+
+```bash
+# Set via environment variable
+SEARCH_HIGHLIGHT_LIMIT=10 docker-compose up -d
+
+# Or add to docker-compose.yml
+environment:
+  - SEARCH_HIGHLIGHT_LIMIT=10
+```
+
 ### Manual Docker Run
 
 ```bash
