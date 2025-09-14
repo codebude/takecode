@@ -25,19 +25,19 @@ A modern web interface for browsing and searching your MassCode snippets with sy
 
 ### Using Docker Compose (Recommended)
 
-1. **Clone the repository**:
+1. **Download the docker-compose.yml**:
    ```bash
-   git clone https://github.com/codebude/masscode-web.git
-   cd masscode-web
+   wget https://raw.githubusercontent.com/codebude/masscode-web/main/docker-compose.yml
    ```
 
-2. **Place your data**:
-   ```bash
-   # Copy your MassCode db.json file to the project root
-   cp /path/to/your/masscode/db.json ./db.json
+2. **Edit the volume mapping**:
+   Open `docker-compose.yml` and update the volume path to point to your local MassCode `db.json` file:
+   ```yaml
+   volumes:
+     - /path/to/your/masscode/db.json:/usr/share/nginx/html/data/db.json:ro
    ```
 
-3. **Run with Docker Compose**:
+3. **Run the application**:
    ```bash
    docker-compose up -d
    ```
@@ -56,15 +56,12 @@ volumes:
   - ./db.json:/usr/share/nginx/html/data/db.json:ro
 ```
 
-This allows you to:
-- Keep your data file outside the container
-- Update snippets without rebuilding the image
-- Maintain data persistence
+**Important**: Update the left side (`./db.json`) to the actual path of your MassCode database file. The volume is read-only to prevent accidental modifications to your data.
 
 ### Manual Docker Run
 
 ```bash
-docker run -d -p 8080:80 -v $(pwd)/db.json:/usr/share/nginx/html/data/db.json:ro ghcr.io/codebude/masscode-web:latest
+docker run -d -p 8080:80 -v /path/to/your/db.json:/usr/share/nginx/html/data/db.json:ro ghcr.io/codebude/masscode-web:latest
 ```
 
 ## 🎯 What is MassCode?
