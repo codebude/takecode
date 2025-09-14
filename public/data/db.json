@@ -1,0 +1,676 @@
+{
+  "folders": [
+    {
+      "name": "JavaScript",
+      "parentId": null,
+      "isOpen": true,
+      "isSystem": false,
+      "defaultLanguage": "javascript",
+      "id": "js-folder",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000,
+      "index": 0,
+      "icon": "javascript"
+    },
+    {
+      "name": "Python",
+      "parentId": null,
+      "isOpen": false,
+      "isSystem": false,
+      "defaultLanguage": "python",
+      "id": "py-folder",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000,
+      "icon": "python",
+      "index": 1
+    },
+    {
+      "name": "Shell",
+      "parentId": null,
+      "isOpen": false,
+      "isSystem": false,
+      "defaultLanguage": "sh",
+      "id": "shell-folder",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000,
+      "index": 2,
+      "icon": "console"
+    },
+    {
+      "name": "SQL",
+      "parentId": null,
+      "isOpen": false,
+      "isSystem": false,
+      "defaultLanguage": "sql",
+      "id": "sql-folder",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000,
+      "index": 3,
+      "icon": "database"
+    },
+    {
+      "name": "Docker",
+      "parentId": null,
+      "isOpen": false,
+      "isSystem": false,
+      "defaultLanguage": "dockerfile",
+      "id": "docker-folder",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000,
+      "index": 4,
+      "icon": "docker"
+    },
+    {
+      "name": "Git",
+      "parentId": null,
+      "isOpen": false,
+      "isSystem": false,
+      "defaultLanguage": "sh",
+      "id": "git-folder",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000,
+      "index": 5,
+      "icon": "git"
+    },
+    {
+      "name": "Web Development",
+      "parentId": null,
+      "isOpen": false,
+      "isSystem": false,
+      "defaultLanguage": "html",
+      "id": "web-folder",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000,
+      "index": 6,
+      "icon": "html"
+    },
+    {
+      "name": "Configuration",
+      "parentId": null,
+      "isOpen": false,
+      "isSystem": false,
+      "defaultLanguage": "yaml",
+      "id": "config-folder",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000,
+      "index": 7,
+      "icon": "settings"
+    }
+  ],
+  "snippets": [
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "js-folder",
+      "tagsIds": ["js-tag", "react-tag"],
+      "description": "React functional component with hooks for a simple counter. Credits: https://react.dev/learn/tutorial-tic-tac-toe",
+      "name": "React Counter Component",
+      "content": [
+        {
+          "label": "Counter.jsx",
+          "language": "javascript",
+          "value": "import React, { useState } from 'react';\n\nconst Counter = () => {\n  const [count, setCount] = useState(0);\n\n  const increment = () => setCount(count + 1);\n  const decrement = () => setCount(count - 1);\n  const reset = () => setCount(0);\n\n  return (\n    <div className=\"counter\">\n      <h2>Counter: {count}</h2>\n      <button onClick={decrement}>-</button>\n      <button onClick={reset}>Reset</button>\n      <button onClick={increment}>+</button>\n    </div>\n  );\n};\n\nexport default Counter;"
+        }
+      ],
+      "id": "react-counter",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "py-folder",
+      "tagsIds": ["py-tag", "data-tag"],
+      "description": "Python script to read CSV file and calculate statistics. Credits: https://docs.python.org/3/library/csv.html",
+      "name": "CSV Data Analysis",
+      "content": [
+        {
+          "label": "analyze_csv.py",
+          "language": "python",
+          "value": "import csv\nimport statistics\nfrom collections import Counter\n\ndef analyze_csv(file_path):\n    \"\"\"Analyze CSV file and return basic statistics\"\"\"\n    data = []\n    \n    with open(file_path, 'r') as file:\n        reader = csv.DictReader(file)\n        for row in reader:\n            data.append(row)\n    \n    if not data:\n        return \"No data found\"\n    \n    # Extract numeric columns\n    numeric_cols = {}\n    for key in data[0].keys():\n        try:\n            values = [float(row[key]) for row in data if row[key]]\n            if values:\n                numeric_cols[key] = values\n        except ValueError:\n            continue\n    \n    result = {\n        'total_rows': len(data),\n        'columns': list(data[0].keys()),\n        'numeric_stats': {}\n    }\n    \n    for col, values in numeric_cols.items():\n        result['numeric_stats'][col] = {\n            'mean': statistics.mean(values),\n            'median': statistics.median(values),\n            'min': min(values),\n            'max': max(values)\n        }\n    \n    return result\n\n# Usage example\n# stats = analyze_csv('data.csv')\n# print(stats)"
+        }
+      ],
+      "id": "csv-analysis",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "sql-folder",
+      "tagsIds": ["sql-tag", "postgres-tag"],
+      "description": "Common PostgreSQL queries for user management. Credits: https://www.postgresql.org/docs/current/user-manag.html",
+      "name": "PostgreSQL User Management",
+      "content": [
+        {
+          "label": "Create User",
+          "language": "sql",
+          "value": "-- Create a new user with login privileges\nCREATE USER new_user WITH PASSWORD 'secure_password';\n\n-- Grant database access\nGRANT CONNECT ON DATABASE myapp TO new_user;\n\n-- Grant schema usage\nGRANT USAGE ON SCHEMA public TO new_user;\n\n-- Grant table privileges\nGRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO new_user;\n\n-- Grant sequence privileges for auto-incrementing IDs\nGRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO new_user;"
+        },
+        {
+          "label": "List Users",
+          "language": "sql",
+          "value": "-- List all database users\nSELECT usename AS username,\n       usesuper AS is_superuser,\n       usecreatedb AS can_create_db,\n       useconnlimit AS connection_limit\nFROM pg_user\nORDER BY usename;"
+        },
+        {
+          "label": "User Permissions",
+          "language": "sql",
+          "value": "-- Check user permissions on tables\nSELECT grantee, privilege_type, table_name\nFROM information_schema.role_table_grants\nWHERE grantee = 'new_user'\nORDER BY table_name, privilege_type;"
+        }
+      ],
+      "id": "postgres-users",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "shell-folder",
+      "tagsIds": ["shell-tag", "backup-tag"],
+      "description": "Bash script for creating compressed backups with rotation. Credits: https://www.gnu.org/software/bash/manual/bash.html",
+      "name": "Backup Script with Rotation",
+      "content": [
+        {
+          "label": "backup.sh",
+          "language": "sh",
+          "value": "#!/bin/bash\n\n# Configuration\nSOURCE_DIR=\"/var/www/myapp\"\nBACKUP_DIR=\"/backup\"\nRETENTION_DAYS=7\nTIMESTAMP=$(date +\"%Y%m%d_%H%M%S\")\nBACKUP_NAME=\"myapp_backup_${TIMESTAMP}.tar.gz\"\n\n# Create backup directory if it doesn't exist\nmkdir -p \"$BACKUP_DIR\"\n\n# Create compressed backup\necho \"Creating backup: $BACKUP_NAME\"\ntar -czf \"$BACKUP_DIR/$BACKUP_NAME\" -C \"$SOURCE_DIR\" .\n\n# Remove old backups\nfind \"$BACKUP_DIR\" -name \"myapp_backup_*.tar.gz\" -mtime +$RETENTION_DAYS -delete\n\necho \"Backup completed: $BACKUP_DIR/$BACKUP_NAME\"\necho \"Old backups cleaned up (kept last $RETENTION_DAYS days)\""
+        }
+      ],
+      "id": "backup-script",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "docker-folder",
+      "tagsIds": ["docker-tag", "nginx-tag"],
+      "description": "Docker Compose setup for Nginx with SSL and load balancing. Credits: https://docs.docker.com/compose/",
+      "name": "Nginx Load Balancer with SSL",
+      "content": [
+        {
+          "label": "docker-compose.yml",
+          "language": "yaml",
+          "value": "version: '3.8'\n\nservices:\n  nginx:\n    image: nginx:alpine\n    ports:\n      - \"80:80\"\n      - \"443:443\"\n    volumes:\n      - ./nginx.conf:/etc/nginx/nginx.conf:ro\n      - ./ssl:/etc/ssl/certs:ro\n      - ./logs:/var/log/nginx\n    depends_on:\n      - app1\n      - app2\n    restart: unless-stopped\n\n  app1:\n    image: myapp:latest\n    environment:\n      - NODE_ENV=production\n    restart: unless-stopped\n\n  app2:\n    image: myapp:latest\n    environment:\n      - NODE_ENV=production\n    restart: unless-stopped"
+        },
+        {
+          "label": "nginx.conf",
+          "language": "nginx",
+          "value": "events {\n    worker_connections 1024;\n}\n\nhttp {\n    upstream backend {\n        server app1:3000;\n        server app2:3000;\n    }\n\n    server {\n        listen 80;\n        server_name example.com;\n        return 301 https://$server_name$request_uri;\n    }\n\n    server {\n        listen 443 ssl http2;\n        server_name example.com;\n\n        ssl_certificate /etc/ssl/certs/example.com.crt;\n        ssl_certificate_key /etc/ssl/certs/example.com.key;\n        ssl_protocols TLSv1.2 TLSv1.3;\n\n        location / {\n            proxy_pass http://backend;\n            proxy_set_header Host $host;\n            proxy_set_header X-Real-IP $remote_addr;\n            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n            proxy_set_header X-Forwarded-Proto $scheme;\n        }\n\n        location /health {\n            access_log off;\n            return 200 \"healthy\\n\";\n            add_header Content-Type text/plain;\n        }\n    }\n}"
+        }
+      ],
+      "id": "nginx-lb",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "git-folder",
+      "tagsIds": ["git-tag", "workflow-tag"],
+      "description": "Git workflow commands for feature branch development. Credits: https://git-scm.com/docs/git-branch",
+      "name": "Git Feature Branch Workflow",
+      "content": [
+        {
+          "label": "Create Feature Branch",
+          "language": "sh",
+          "value": "# Create and switch to new feature branch\ngit checkout -b feature/my-feature\n\n# Push the new branch to remote\ngit push -u origin feature/my-feature"
+        },
+        {
+          "label": "Update Feature Branch",
+          "language": "sh",
+          "value": "# Fetch latest changes from remote\ngit fetch origin\n\n# Rebase feature branch on latest main\ngit rebase origin/main\n\n# Force push updated branch\ngit push --force-with-lease origin feature/my-feature"
+        },
+        {
+          "label": "Merge Feature Branch",
+          "language": "sh",
+          "value": "# Switch to main branch\ngit checkout main\n\n# Pull latest changes\ngit pull origin main\n\n# Merge feature branch with --no-ff\ngit merge --no-ff feature/my-feature\n\n# Push merged changes\ngit push origin main\n\n# Delete merged feature branch\ngit branch -d feature/my-feature\ngit push origin --delete feature/my-feature"
+        }
+      ],
+      "id": "git-workflow",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "web-folder",
+      "tagsIds": ["css-tag", "responsive-tag"],
+      "description": "CSS Grid layout for responsive card design. Credits: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout",
+      "name": "Responsive CSS Grid Cards",
+      "content": [
+        {
+          "label": "styles.css",
+          "language": "css",
+          "value": ".cards-container {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));\n  gap: 1rem;\n  padding: 1rem;\n}\n\n.card {\n  background: white;\n  border-radius: 8px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n  overflow: hidden;\n  transition: transform 0.2s ease, box-shadow 0.2s ease;\n}\n\n.card:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);\n}\n\n.card-image {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n}\n\n.card-content {\n  padding: 1rem;\n}\n\n.card-title {\n  margin: 0 0 0.5rem 0;\n  font-size: 1.25rem;\n  font-weight: 600;\n}\n\n.card-description {\n  margin: 0;\n  color: #666;\n  line-height: 1.5;\n}"
+        },
+        {
+          "label": "index.html",
+          "language": "html",
+          "value": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Responsive Cards</title>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n  <div class=\"cards-container\">\n    <div class=\"card\">\n      <img src=\"image1.jpg\" alt=\"Card 1\" class=\"card-image\">\n      <div class=\"card-content\">\n        <h3 class=\"card-title\">Card Title 1</h3>\n        <p class=\"card-description\">This is a description for the first card.</p>\n      </div>\n    </div>\n    <div class=\"card\">\n      <img src=\"image2.jpg\" alt=\"Card 2\" class=\"card-image\">\n      <div class=\"card-content\">\n        <h3 class=\"card-title\">Card Title 2</h3>\n        <p class=\"card-description\">This is a description for the second card.</p>\n      </div>\n    </div>\n  </div>\n</body>\n</html>"
+        }
+      ],
+      "id": "css-grid-cards",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "js-folder",
+      "tagsIds": ["js-tag", "async-tag"],
+      "description": "JavaScript async/await patterns for API calls. Credits: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
+      "name": "Async API Wrapper",
+      "content": [
+        {
+          "label": "api.js",
+          "language": "javascript",
+          "value": "class ApiClient {\n  constructor(baseURL) {\n    this.baseURL = baseURL;\n  }\n\n  async request(endpoint, options = {}) {\n    const url = `${this.baseURL}${endpoint}`;\n    const config = {\n      headers: {\n        'Content-Type': 'application/json',\n        ...options.headers,\n      },\n      ...options,\n    };\n\n    try {\n      const response = await fetch(url, config);\n      \n      if (!response.ok) {\n        throw new Error(`HTTP error! status: ${response.status}`);\n      }\n      \n      return await response.json();\n    } catch (error) {\n      console.error('API request failed:', error);\n      throw error;\n    }\n  }\n\n  async get(endpoint, params = {}) {\n    const queryString = new URLSearchParams(params).toString();\n    const url = queryString ? `${endpoint}?${queryString}` : endpoint;\n    return this.request(url);\n  }\n\n  async post(endpoint, data) {\n    return this.request(endpoint, {\n      method: 'POST',\n      body: JSON.stringify(data),\n    });\n  }\n\n  async put(endpoint, data) {\n    return this.request(endpoint, {\n      method: 'PUT',\n      body: JSON.stringify(data),\n    });\n  }\n\n  async delete(endpoint) {\n    return this.request(endpoint, {\n      method: 'DELETE',\n    });\n  }\n}\n\n// Usage example\nconst api = new ApiClient('https://api.example.com');\n\n// GET request\napi.get('/users').then(users => console.log(users));\n\n// POST request\napi.post('/users', { name: 'John', email: 'john@example.com' })\n  .then(user => console.log(user));\n\nexport default ApiClient;"
+        }
+      ],
+      "id": "async-api",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "py-folder",
+      "tagsIds": ["py-tag", "logging-tag"],
+      "description": "Python logging configuration with file rotation. Credits: https://docs.python.org/3/library/logging.html",
+      "name": "Python Logging Setup",
+      "content": [
+        {
+          "label": "logger.py",
+          "language": "python",
+          "value": "import logging\nimport logging.handlers\nfrom pathlib import Path\n\ndef setup_logging(\n    log_level=logging.INFO,\n    log_file='app.log',\n    max_bytes=10*1024*1024,  # 10MB\n    backup_count=5\n):\n    \"\"\"Setup application logging with file rotation\"\"\"\n    \n    # Create logs directory if it doesn't exist\n    log_path = Path(log_file)\n    log_path.parent.mkdir(parents=True, exist_ok=True)\n    \n    # Create logger\n    logger = logging.getLogger()\n    logger.setLevel(log_level)\n    \n    # Remove existing handlers to avoid duplicates\n    for handler in logger.handlers[:]:\n        logger.removeHandler(handler)\n    \n    # Create formatters\n    file_formatter = logging.Formatter(\n        '%(asctime)s - %(name)s - %(levelname)s - %(message)s'\n    )\n    console_formatter = logging.Formatter(\n        '%(levelname)s - %(message)s'\n    )\n    \n    # File handler with rotation\n    file_handler = logging.handlers.RotatingFileHandler(\n        log_file,\n        maxBytes=max_bytes,\n        backupCount=backup_count\n    )\n    file_handler.setLevel(log_level)\n    file_handler.setFormatter(file_formatter)\n    \n    # Console handler\n    console_handler = logging.StreamHandler()\n    console_handler.setLevel(log_level)\n    console_handler.setFormatter(console_formatter)\n    \n    # Add handlers to logger\n    logger.addHandler(file_handler)\n    logger.addHandler(console_handler)\n    \n    return logger\n\n# Usage example\nlogger = setup_logging(\n    log_level=logging.DEBUG,\n    log_file='logs/myapp.log'\n)\n\nlogger.info('Application started')\nlogger.debug('Debug message')\nlogger.error('Error occurred')"
+        }
+      ],
+      "id": "python-logging",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "config-folder",
+      "tagsIds": ["yaml-tag", "k8s-tag"],
+      "description": "Kubernetes deployment configuration for a web application. Credits: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+      "name": "Kubernetes Deployment",
+      "content": [
+        {
+          "label": "deployment.yaml",
+          "language": "yaml",
+          "value": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: web-app\n  labels:\n    app: web-app\nspec:\n  replicas: 3\n  selector:\n    matchLabels:\n      app: web-app\n  template:\n    metadata:\n      labels:\n        app: web-app\n    spec:\n      containers:\n      - name: web-app\n        image: myapp:latest\n        ports:\n        - containerPort: 3000\n        env:\n        - name: NODE_ENV\n          value: \"production\"\n        resources:\n          requests:\n            memory: \"128Mi\"\n            cpu: \"100m\"\n          limits:\n            memory: \"256Mi\"\n            cpu: \"200m\"\n        livenessProbe:\n          httpGet:\n            path: /health\n            port: 3000\n          initialDelaySeconds: 30\n          periodSeconds: 10\n        readinessProbe:\n          httpGet:\n            path: /ready\n            port: 3000\n          initialDelaySeconds: 5\n          periodSeconds: 5"
+        },
+        {
+          "label": "service.yaml",
+          "language": "yaml",
+          "value": "apiVersion: v1\nkind: Service\nmetadata:\n  name: web-app-service\nspec:\n  selector:\n    app: web-app\n  ports:\n  - port: 80\n    targetPort: 3000\n    protocol: TCP\n  type: ClusterIP"
+        }
+      ],
+      "id": "k8s-deployment",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "shell-folder",
+      "tagsIds": ["shell-tag", "monitoring-tag"],
+      "description": "System monitoring script with alerts. Credits: https://www.gnu.org/software/bash/manual/bash.html",
+      "name": "System Health Check",
+      "content": [
+        {
+          "label": "health_check.sh",
+          "language": "sh",
+          "value": "#!/bin/bash\n\n# Configuration\nALERT_EMAIL=\"admin@example.com\"\nTHRESHOLD_CPU=80\nTHRESHOLD_MEMORY=85\nTHRESHOLD_DISK=90\n\n# Function to send alert\nsend_alert() {\n    local message=\"$1\"\n    echo \"$message\" | mail -s \"System Alert\" \"$ALERT_EMAIL\"\n}\n\n# Check CPU usage\ncpu_usage=$(top -bn1 | grep \"Cpu(s)\" | sed \"s/.*, *\\([0-9.]*\\)%* id.*/\\1/\" | awk '{print 100 - $1}')\nif (( $(echo \"$cpu_usage > $THRESHOLD_CPU\" | bc -l) )); then\n    send_alert \"High CPU usage: ${cpu_usage}%\"\nfi\n\n# Check memory usage\nmemory_usage=$(free | grep Mem | awk '{printf \"%.0f\", $3/$2 * 100.0}')\nif [ \"$memory_usage\" -gt \"$THRESHOLD_MEMORY\" ]; then\n    send_alert \"High memory usage: ${memory_usage}%\"\nfi\n\n# Check disk usage\ndisk_usage=$(df / | tail -1 | awk '{print $5}' | sed 's/%//')\nif [ \"$disk_usage\" -gt \"$THRESHOLD_DISK\" ]; then\n    send_alert \"High disk usage: ${disk_usage}%\"\nfi\n\n# Log results\necho \"$(date): CPU: ${cpu_usage}%, Memory: ${memory_usage}%, Disk: ${disk_usage}%\" >> /var/log/health_check.log"
+        }
+      ],
+      "id": "system-health",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "sql-folder",
+      "tagsIds": ["sql-tag", "mysql-tag"],
+      "description": "MySQL database optimization queries. Credits: https://dev.mysql.com/doc/refman/8.0/en/optimization.html",
+      "name": "MySQL Performance Tuning",
+      "content": [
+        {
+          "label": "Index Optimization",
+          "language": "sql",
+          "value": "-- Find unused indexes\nSELECT\n    object_schema,\n    object_name,\n    index_name,\n    count_read,\n    count_write,\n    count_fetch\nFROM performance_schema.table_io_waits_summary_by_index_usage\nWHERE object_schema NOT IN ('mysql', 'sys', 'performance_schema', 'information_schema')\n    AND index_name IS NOT NULL\n    AND count_read = 0\n    AND count_write = 0\n    AND count_fetch = 0\nORDER BY object_schema, object_name;"
+        },
+        {
+          "label": "Query Optimization",
+          "language": "sql",
+          "value": "-- Analyze slow queries\nSELECT\n    sql_text,\n    exec_count,\n    avg_timer_wait/1000000000 as avg_time_sec,\n    rows_examined_avg,\n    rows_sent_avg\nFROM performance_schema.events_statements_summary_by_digest\nWHERE schema_name NOT IN ('mysql', 'sys', 'performance_schema')\n    AND avg_timer_wait > 1000000000  -- More than 1 second\nORDER BY avg_timer_wait DESC\nLIMIT 10;"
+        },
+        {
+          "label": "Table Optimization",
+          "language": "sql",
+          "value": "-- Optimize tables with fragmentation\nSELECT\n    table_schema,\n    table_name,\n    data_free / 1024 / 1024 as free_mb,\n    data_length / 1024 / 1024 as data_mb,\n    index_length / 1024 / 1024 as index_mb\nFROM information_schema.tables\nWHERE table_schema NOT IN ('mysql', 'sys', 'performance_schema', 'information_schema')\n    AND data_free > 0\nORDER BY data_free DESC;"
+        }
+      ],
+      "id": "mysql-tuning",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "js-folder",
+      "tagsIds": ["js-tag", "testing-tag"],
+      "description": "Jest testing utilities and patterns. Credits: https://jestjs.io/docs/getting-started",
+      "name": "Jest Testing Patterns",
+      "content": [
+        {
+          "label": "test-utils.js",
+          "language": "javascript",
+          "value": "// Custom Jest matchers\nexpect.extend({\n  toBeValidDate(received) {\n    const pass = received instanceof Date && !isNaN(received);\n    const message = () =>\n      `expected ${received} ${pass ? 'not ' : ''}to be a valid date`;\n    return { pass, message };\n  },\n});\n\n// Mock factory for API calls\nglobal.mockApiResponse = (data, status = 200) => {\n  return {\n    ok: status >= 200 && status < 300,\n    status,\n    json: jest.fn().mockResolvedValue(data),\n    text: jest.fn().mockResolvedValue(JSON.stringify(data)),\n  };\n};\n\n// Test data factories\nconst createUser = (overrides = {}) => ({\n  id: 1,\n  name: 'John Doe',\n  email: 'john@example.com',\n  createdAt: new Date('2023-01-01'),\n  ...overrides,\n});\n\nconst createPost = (overrides = {}) => ({\n  id: 1,\n  title: 'Test Post',\n  content: 'Test content',\n  authorId: 1,\n  published: true,\n  ...overrides,\n});\n\nmodule.exports = {\n  createUser,\n  createPost,\n};"
+        },
+        {
+          "label": "example.test.js",
+          "language": "javascript",
+          "value": "const { createUser, createPost } = require('./test-utils');\n\ndescribe('User API', () => {\n  beforeEach(() => {\n    jest.clearAllMocks();\n  });\n\n  describe('GET /users/:id', () => {\n    it('returns user data', async () => {\n      const mockUser = createUser({ name: 'Jane Doe' });\n      global.fetch = jest.fn().mockResolvedValue(mockApiResponse(mockUser));\n\n      const user = await getUser(1);\n\n      expect(fetch).toHaveBeenCalledWith('/api/users/1');\n      expect(user).toEqual(mockUser);\n    });\n\n    it('handles API errors', async () => {\n      global.fetch = jest.fn().mockResolvedValue(mockApiResponse(null, 404));\n\n      await expect(getUser(999)).rejects.toThrow('User not found');\n    });\n  });\n\n  describe('POST /posts', () => {\n    it('creates a new post', async () => {\n      const newPost = createPost({ title: 'New Post' });\n      const createdPost = { ...newPost, id: 2 };\n      global.fetch = jest.fn().mockResolvedValue(mockApiResponse(createdPost));\n\n      const result = await createPost(newPost);\n\n      expect(fetch).toHaveBeenCalledWith('/api/posts', {\n        method: 'POST',\n        body: JSON.stringify(newPost),\n      });\n      expect(result.id).toBeDefined();\n    });\n  });\n});"
+        }
+      ],
+      "id": "jest-patterns",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "py-folder",
+      "tagsIds": ["py-tag", "cli-tag"],
+      "description": "Python CLI application with argument parsing. Credits: https://docs.python.org/3/library/argparse.html",
+      "name": "Python CLI Tool",
+      "content": [
+        {
+          "label": "cli_tool.py",
+          "language": "python",
+          "value": "#!/usr/bin/env python3\n\nimport argparse\nimport sys\nfrom pathlib import Path\nfrom typing import List, Optional\n\nclass FileProcessor:\n    \"\"\"Process files with various operations\"\"\"\n    \n    def __init__(self, verbose: bool = False):\n        self.verbose = verbose\n    \n    def process_file(self, file_path: Path) -> bool:\n        \"\"\"Process a single file\"\"\"\n        try:\n            if self.verbose:\n                print(f\"Processing: {file_path}\")\n            \n            # Example processing: count lines\n            with open(file_path, 'r', encoding='utf-8') as f:\n                lines = f.readlines()\n                line_count = len(lines)\n            \n            if self.verbose:\n                print(f\"  Lines: {line_count}\")\n            \n            return True\n        except Exception as e:\n            print(f\"Error processing {file_path}: {e}\", file=sys.stderr)\n            return False\n    \n    def process_directory(self, dir_path: Path, pattern: str = \"*\") -> int:\n        \"\"\"Process all files in directory matching pattern\"\"\"\n        success_count = 0\n        \n        for file_path in dir_path.glob(pattern):\n            if file_path.is_file():\n                if self.process_file(file_path):\n                    success_count += 1\n        \n        return success_count\n\ndef main():\n    parser = argparse.ArgumentParser(\n        description=\"Process files in directory\",\n        formatter_class=argparse.RawDescriptionHelpFormatter,\n        epilog=\"\"\"\nExamples:\n  %(prog)s /path/to/dir\n  %(prog)s /path/to/dir --pattern \"*.txt\" --verbose\n  %(prog)s file.txt\n        \"\"\"\n    )\n    \n    parser.add_argument(\n        'path',\n        type=Path,\n        help='File or directory path to process'\n    )\n    \n    parser.add_argument(\n        '-p', '--pattern',\n        default='*',\n        help='File pattern to match (default: *)'\n    )\n    \n    parser.add_argument(\n        '-v', '--verbose',\n        action='store_true',\n        help='Enable verbose output'\n    )\n    \n    args = parser.parse_args()\n    \n    path = args.path\n    if not path.exists():\n        print(f\"Error: Path '{path}' does not exist\", file=sys.stderr)\n        sys.exit(1)\n    \n    processor = FileProcessor(verbose=args.verbose)\n    \n    if path.is_file():\n        success = processor.process_file(path)\n        sys.exit(0 if success else 1)\n    elif path.is_dir():\n        processed_count = processor.process_directory(path, args.pattern)\n        print(f\"Processed {processed_count} files\")\n        sys.exit(0)\n    else:\n        print(f\"Error: '{path}' is neither a file nor directory\", file=sys.stderr)\n        sys.exit(1)\n\nif __name__ == '__main__':\n    main()"
+        }
+      ],
+      "id": "python-cli",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "web-folder",
+      "tagsIds": ["html-tag", "form-tag"],
+      "description": "Accessible HTML form with validation. Credits: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form",
+      "name": "Accessible Contact Form",
+      "content": [
+        {
+          "label": "contact.html",
+          "language": "html",
+          "value": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Contact Form</title>\n  <link rel=\"stylesheet\" href=\"contact.css\">\n</head>\n<body>\n  <main>\n    <h1>Contact Us</h1>\n    <form id=\"contact-form\" action=\"/submit\" method=\"post\" novalidate>\n      <div class=\"form-group\">\n        <label for=\"name\">Full Name *</label>\n        <input\n          type=\"text\"\n          id=\"name\"\n          name=\"name\"\n          required\n          aria-describedby=\"name-error\"\n          autocomplete=\"name\"\n        >\n        <span id=\"name-error\" class=\"error\" role=\"alert\" aria-live=\"polite\"></span>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"email\">Email Address *</label>\n        <input\n          type=\"email\"\n          id=\"email\"\n          name=\"email\"\n          required\n          aria-describedby=\"email-error\"\n          autocomplete=\"email\"\n        >\n        <span id=\"email-error\" class=\"error\" role=\"alert\" aria-live=\"polite\"></span>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"subject\">Subject</label>\n        <select id=\"subject\" name=\"subject\" autocomplete=\"off\">\n          <option value=\"\">Choose a subject</option>\n          <option value=\"general\">General Inquiry</option>\n          <option value=\"support\">Technical Support</option>\n          <option value=\"billing\">Billing Question</option>\n        </select>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"message\">Message *</label>\n        <textarea\n          id=\"message\"\n          name=\"message\"\n          required\n          aria-describedby=\"message-error\"\n          rows=\"5\"\n        ></textarea>\n        <span id=\"message-error\" class=\"error\" role=\"alert\" aria-live=\"polite\"></span>\n      </div>\n\n      <div class=\"form-group\">\n        <label class=\"checkbox-label\">\n          <input\n            type=\"checkbox\"\n            name=\"newsletter\"\n            value=\"yes\"\n            aria-describedby=\"newsletter-help\"\n          >\n          Subscribe to our newsletter\n        </label>\n        <span id=\"newsletter-help\" class=\"help\">Get monthly updates about our products and services.</span>\n      </div>\n\n      <button type=\"submit\" class=\"submit-btn\">Send Message</button>\n    </form>\n  </main>\n\n  <script src=\"contact.js\"></script>\n</body>\n</html>"
+        },
+        {
+          "label": "contact.js",
+          "language": "javascript",
+          "value": "// Form validation and submission\nconst form = document.getElementById('contact-form');\nconst submitBtn = document.querySelector('.submit-btn');\n\n// Validation patterns\nconst patterns = {\n  name: /^[a-zA-Z\\s]{2,50}$/,\n  email: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/,\n  message: /^.{10,1000}$/\n};\n\n// Error messages\nconst messages = {\n  name: 'Please enter a valid name (2-50 characters)',\n  email: 'Please enter a valid email address',\n  message: 'Please enter a message (10-1000 characters)'\n};\n\n// Validate single field\nfunction validateField(field) {\n  const value = field.value.trim();\n  const fieldName = field.name;\n  const errorElement = document.getElementById(`${fieldName}-error`);\n  \n  let isValid = true;\n  let message = '';\n  \n  if (field.hasAttribute('required') && !value) {\n    isValid = false;\n    message = 'This field is required';\n  } else if (patterns[fieldName] && !patterns[fieldName].test(value)) {\n    isValid = false;\n    message = messages[fieldName];\n  }\n  \n  errorElement.textContent = message;\n  field.setAttribute('aria-invalid', !isValid);\n  \n  return isValid;\n}\n\n// Validate all fields\nfunction validateForm() {\n  const fields = form.querySelectorAll('input[required], textarea[required], select[required]');\n  let isValid = true;\n  \n  fields.forEach(field => {\n    if (!validateField(field)) {\n      isValid = false;\n    }\n  });\n  \n  return isValid;\n}\n\n// Handle form submission\nform.addEventListener('submit', async (e) => {\n  e.preventDefault();\n  \n  if (!validateForm()) {\n    return;\n  }\n  \n  submitBtn.disabled = true;\n  submitBtn.textContent = 'Sending...';\n  \n  try {\n    const formData = new FormData(form);\n    const response = await fetch(form.action, {\n      method: form.method,\n      body: formData\n    });\n    \n    if (response.ok) {\n      alert('Message sent successfully!');\n      form.reset();\n    } else {\n      throw new Error('Failed to send message');\n    }\n  } catch (error) {\n    alert('Error sending message. Please try again.');\n    console.error('Form submission error:', error);\n  } finally {\n    submitBtn.disabled = false;\n    submitBtn.textContent = 'Send Message';\n  }\n});\n\n// Real-time validation\nform.addEventListener('blur', (e) => {\n  if (e.target.matches('input, textarea, select')) {\n    validateField(e.target);\n  }\n}, true);"
+        }
+      ],
+      "id": "accessible-form",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "config-folder",
+      "tagsIds": ["json-tag", "config-tag"],
+      "description": "ESLint and Prettier configuration for JavaScript projects. Credits: https://eslint.org/docs/user-guide/configuring/",
+      "name": "ESLint & Prettier Config",
+      "content": [
+        {
+          "label": ".eslintrc.json",
+          "language": "json",
+          "value": "{\n  \"env\": {\n    \"browser\": true,\n    \"es2021\": true,\n    \"node\": true\n  },\n  \"extends\": [\n    \"eslint:recommended\",\n    \"@typescript-eslint/recommended\",\n    \"prettier\"\n  ],\n  \"parser\": \"@typescript-eslint/parser\",\n  \"parserOptions\": {\n    \"ecmaVersion\": 12,\n    \"sourceType\": \"module\"\n  },\n  \"plugins\": [\n    \"@typescript-eslint\",\n    \"prettier\"\n  ],\n  \"rules\": {\n    \"prettier/prettier\": \"error\",\n    \"no-console\": \"warn\",\n    \"no-unused-vars\": [\"error\", { \"argsIgnorePattern\": \"^_\" }],\n    \"prefer-const\": \"error\",\n    \"no-var\": \"error\"\n  },\n  \"overrides\": [\n    {\n      \"files\": [\"*.test.js\", \"*.test.ts\"],\n      \"env\": {\n        \"jest\": true\n      },\n      \"rules\": {\n        \"@typescript-eslint/no-explicit-any\": \"off\"\n      }\n    }\n  ]\n}"
+        },
+        {
+          "label": ".prettierrc",
+          "language": "json",
+          "value": "{\n  \"semi\": true,\n  \"trailingComma\": \"es5\",\n  \"singleQuote\": true,\n  \"printWidth\": 80,\n  \"tabWidth\": 2,\n  \"useTabs\": false,\n  \"bracketSpacing\": true,\n  \"arrowParens\": \"avoid\",\n  \"endOfLine\": \"lf\"\n}"
+        },
+        {
+          "label": "package.json",
+          "language": "json",
+          "value": "{\n  \"name\": \"my-project\",\n  \"version\": \"1.0.0\",\n  \"scripts\": {\n    \"lint\": \"eslint src/**/*.js\",\n    \"lint:fix\": \"eslint src/**/*.js --fix\",\n    \"format\": \"prettier --write src/**/*.js\",\n    \"format:check\": \"prettier --check src/**/*.js\"\n  },\n  \"devDependencies\": {\n    \"@typescript-eslint/eslint-plugin\": \"^5.0.0\",\n    \"@typescript-eslint/parser\": \"^5.0.0\",\n    \"eslint\": \"^8.0.0\",\n    \"eslint-config-prettier\": \"^8.0.0\",\n    \"eslint-plugin-prettier\": \"^4.0.0\",\n    \"prettier\": \"^2.0.0\"\n  }\n}"
+        }
+      ],
+      "id": "eslint-prettier",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "docker-folder",
+      "tagsIds": ["docker-tag", "multi-stage-tag"],
+      "description": "Multi-stage Docker build for Python applications. Credits: https://docs.docker.com/develop/dev-best-practices/",
+      "name": "Python Multi-Stage Docker Build",
+      "content": [
+        {
+          "label": "Dockerfile",
+          "language": "dockerfile",
+          "value": "# Multi-stage build for Python application\n\n# Build stage\nFROM python:3.11-slim as builder\n\n# Set environment variables\nENV PYTHONDONTWRITEBYTECODE=1 \\\n    PYTHONUNBUFFERED=1 \\\n    PIP_NO_CACHE_DIR=off \\\n    PIP_DISABLE_PIP_VERSION_CHECK=on\n\n# Install system dependencies\nRUN apt-get update && apt-get install -y \\\n    build-essential \\\n    && rm -rf /var/lib/apt/lists/*\n\n# Create virtual environment\nRUN python -m venv /opt/venv\nENV PATH=\"/opt/venv/bin:$PATH\"\n\n# Copy requirements and install Python dependencies\nCOPY requirements.txt .\nRUN pip install --upgrade pip && \\\n    pip install -r requirements.txt\n\n# Production stage\nFROM python:3.11-slim as production\n\n# Install runtime dependencies\nRUN apt-get update && apt-get install -y \\\n    curl \\\n    && rm -rf /var/lib/apt/lists/*\n\n# Create non-root user\nRUN groupadd -r appuser && useradd -r -g appuser appuser\n\n# Copy virtual environment from builder stage\nCOPY --from=builder /opt/venv /opt/venv\n\n# Make sure scripts in .local are usable\nENV PATH=\"/opt/venv/bin:$PATH\"\n\n# Set working directory\nWORKDIR /app\n\n# Copy application code\nCOPY --chown=appuser:appuser . .\n\n# Switch to non-root user\nUSER appuser\n\n# Health check\nHEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \\\n    CMD curl -f http://localhost:8000/health || exit 1\n\n# Expose port\nEXPOSE 8000\n\n# Run application\nCMD [\"python\", \"app.py\"]"
+        },
+        {
+          "label": ".dockerignore",
+          "language": "text",
+          "value": "# Version control\n.git\n.gitignore\n\n# Python\n__pycache__\n*.pyc\n*.pyo\n*.pyd\n.Python\nenv\nvenv\n.venv\npip-log.txt\npip-delete-this-directory.txt\n.tox\n.coverage\n.coverage.*\n.cache\nnosetests.xml\ncoverage.xml\n*.cover\n*.log\n\n# Virtual environments\n.env\n.venv\nenv/\nvenv/\nENV/\nenv.bak/\nvenv.bak/\n\n# IDE\n.vscode/\n.idea/\n*.swp\n*.swo\n*~\n\n# OS\n.DS_Store\n.DS_Store?\n._*\n.Spotlight-V100\n.Trashes\nei.cfg\nIcon?\n\n# Testing\n.pytest_cache/\n.coverage\nhtmlcov/\n\n# Documentation\n*.md\n!README.md\ndocs/\n\n# Docker\ndocker-compose*.yml\nDockerfile*\n.dockerignore"
+        }
+      ],
+      "id": "python-docker",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "git-folder",
+      "tagsIds": ["git-tag", "hooks-tag"],
+      "description": "Git hooks for code quality and testing. Credits: https://git-scm.com/docs/githooks",
+      "name": "Git Hooks for Quality Assurance",
+      "content": [
+        {
+          "label": "pre-commit",
+          "language": "sh",
+          "value": "#!/bin/bash\n\n# Pre-commit hook for code quality checks\n\n# Colors for output\nRED='\\033[0;31m'\nGREEN='\\033[0;32m'\nYELLOW='\\033[1;33m'\nNC='\\033[0m' # No Color\n\n# Function to print colored output\nfunction echo_color() {\n    echo -e \"$1$2${NC}\"\n}\n\nfunction run_checks() {\n    local failed=0\n    \n    echo_color $YELLOW \"Running pre-commit checks...\"\n    \n    # Check if there are any staged files\n    if git diff --cached --quiet; then\n        echo_color $GREEN \"No staged files to check.\"\n        return 0\n    fi\n    \n    # Run linting\n    if command -v npm &> /dev/null && [ -f \"package.json\" ]; then\n        echo \"Running ESLint...\"\n        if ! npm run lint; then\n            echo_color $RED \"ESLint failed. Please fix the issues before committing.\"\n            failed=1\n        fi\n    fi\n    \n    # Run tests\n    if command -v npm &> /dev/null && [ -f \"package.json\" ]; then\n        echo \"Running tests...\"\n        if ! npm test; then\n            echo_color $RED \"Tests failed. Please fix the issues before committing.\"\n            failed=1\n        fi\n    fi\n    \n    # Check for large files\n    echo \"Checking for large files...\"\n    large_files=$(git diff --cached --name-only | xargs ls -l 2>/dev/null | awk '$5 > 50000000 {print $9}')\n    if [ ! -z \"$large_files\" ]; then\n        echo_color $RED \"Large files detected (>50MB):\"\n        echo \"$large_files\"\n        echo_color $RED \"Please remove or use Git LFS for large files.\"\n        failed=1\n    fi\n    \n    # Check for secrets\n    echo \"Checking for potential secrets...\"\n    if command -v grep &> /dev/null; then\n        secrets_found=$(git diff --cached | grep -E \"(password|secret|key|token).*[\"']([^\"']+)\" | wc -l)\n        if [ \"$secrets_found\" -gt 0 ]; then\n            echo_color $RED \"Potential secrets found in staged files. Please review before committing.\"\n            failed=1\n        fi\n    fi\n    \n    if [ $failed -eq 0 ]; then\n        echo_color $GREEN \"All checks passed!\"\n        return 0\n    else\n        echo_color $RED \"Pre-commit checks failed. Please fix the issues and try again.\"\n        return 1\n    fi\n}\n\nrun_checks"
+        },
+        {
+          "label": "commit-msg",
+          "language": "sh",
+          "value": "#!/bin/bash\n\n# Commit message validation hook\n\n# Read the commit message\ncommit_msg_file=\"$1\"\ncommit_msg=$(cat \"$commit_msg_file\")\n\n# Colors for output\nRED='\\033[0;31m'\nGREEN='\\033[0;32m'\nNC='\\033[0m'\n\nfunction echo_color() {\n    echo -e \"$1$2${NC}\"\n}\n\n# Check commit message format\nfunction validate_commit_msg() {\n    local msg=\"$1\"\n    \n    # Check minimum length\n    if [ ${#msg} -lt 10 ]; then\n        echo_color $RED \"Commit message is too short (minimum 10 characters)\"\n        return 1\n    fi\n    \n    # Check maximum length\n    if [ ${#msg} -gt 72 ]; then\n        echo_color $RED \"Commit message is too long (maximum 72 characters for first line)\"\n        return 1\n    fi\n    \n    # Check for proper formatting (starts with capital letter)\n    if ! echo \"$msg\" | grep -q \"^[A-Z]\"; then\n        echo_color $RED \"Commit message should start with a capital letter\"\n        return 1\n    fi\n    \n    # Check for trailing period\n    if echo \"$msg\" | grep -q \"\\.$\"; then\n        echo_color $RED \"Commit message should not end with a period\"\n        return 1\n    fi\n    \n    return 0\n}\n\nif ! validate_commit_msg \"$commit_msg\"; then\n    echo_color $RED \"Invalid commit message format.\"\n    echo \"Please follow these guidelines:\"\n    echo \"- Start with a capital letter\"\n    echo \"- Be descriptive but concise (10-72 characters)\"\n    echo \"- Don't end with a period\"\n    echo \"\"\n    echo \"Examples:\"\n    echo \"  Add user authentication feature\"\n    echo \"  Fix memory leak in data processing\"\n    echo \"  Update documentation for API endpoints\"\n    exit 1\nfi\n\necho_color $GREEN \"Commit message format is valid!\""
+        },
+        {
+          "label": "setup-hooks.sh",
+          "language": "sh",
+          "value": "#!/bin/bash\n\n# Setup Git hooks for the project\n\nHOOKS_DIR=\".git/hooks\"\nPROJECT_HOOKS_DIR=\".githooks\"\n\n# Create hooks directory if it doesn't exist\nmkdir -p \"$HOOKS_DIR\"\n\n# Copy hooks from project directory\necho \"Setting up Git hooks...\"\n\nif [ -f \"$PROJECT_HOOKS_DIR/pre-commit\" ]; then\n    cp \"$PROJECT_HOOKS_DIR/pre-commit\" \"$HOOKS_DIR/pre-commit\"\n    chmod +x \"$HOOKS_DIR/pre-commit\"\n    echo \"✓ Installed pre-commit hook\"\nfi\n\nif [ -f \"$PROJECT_HOOKS_DIR/commit-msg\" ]; then\n    cp \"$PROJECT_HOOKS_DIR/commit-msg\" \"$HOOKS_DIR/commit-msg\"\n    chmod +x \"$HOOKS_DIR/commit-msg\"\n    echo \"✓ Installed commit-msg hook\"\nfi\n\n# Configure Git to use project hooks directory\ngit config core.hooksPath .githooks\n\necho \"Git hooks setup complete!\"\necho \"Hooks will run automatically on commit.\""
+        }
+      ],
+      "id": "git-hooks",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    }
+  ],
+  "tags": [
+    {
+      "name": "javascript",
+      "id": "js-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "react",
+      "id": "react-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "python",
+      "id": "py-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "data",
+      "id": "data-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "sql",
+      "id": "sql-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "postgres",
+      "id": "postgres-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "shell",
+      "id": "shell-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "backup",
+      "id": "backup-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "docker",
+      "id": "docker-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "nginx",
+      "id": "nginx-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "git",
+      "id": "git-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "workflow",
+      "id": "workflow-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "css",
+      "id": "css-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "responsive",
+      "id": "responsive-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "async",
+      "id": "async-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "logging",
+      "id": "logging-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "yaml",
+      "id": "yaml-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "k8s",
+      "id": "k8s-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "monitoring",
+      "id": "monitoring-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "mysql",
+      "id": "mysql-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "testing",
+      "id": "testing-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "cli",
+      "id": "cli-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "html",
+      "id": "html-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "form",
+      "id": "form-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "json",
+      "id": "json-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "config",
+      "id": "config-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "multi-stage",
+      "id": "multi-stage-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "hooks",
+      "id": "hooks-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    }
+  ]
+}
