@@ -27,7 +27,7 @@ jobs:
       id: get-tag
       run: |
         git fetch --tags
-        LATEST_TAG=$(git tag --list 'v[0-9]*.[0-9]*.[0-9]*' --sort=-version:refname | head -1)
+        LATEST_TAG=$(git tag | grep '^v[0-9]\+\.[0-9]\+\.[0-9]\+\(-rc\.[0-9]\+\)\?$' | sort -V | tail -1)
         if [ -z "$LATEST_TAG" ]; then
           echo "No version tags found on branch ${{ inputs.branch }}"
           exit 1
