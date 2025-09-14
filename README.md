@@ -6,6 +6,12 @@ A modern web interface for browsing and searching your MassCode snippets with sy
 ![Docker](https://img.shields.io/badge/Docker-Ready-green?style=flat-square&logo=docker)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
+[![GitHub stars](https://img.shields.io/github/stars/codebude/masscode-web?style=social)](https://github.com/codebude/masscode-web)
+[![GitHub last commit](https://img.shields.io/github/last-commit/codebude/masscode-web)](https://github.com/codebude/masscode-web)
+[![GitHub repo size](https://img.shields.io/github/repo-size/codebude/masscode-web)](https://github.com/codebude/masscode-web)
+[![GitHub issues](https://img.shields.io/github/issues/codebude/masscode-web)](https://github.com/codebude/masscode-web/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/codebude/masscode-web)](https://github.com/codebude/masscode-web/pulls)
+
 ## ✨ Features
 
 - 🔍 **Search & Filter**: Quickly find snippets by name, description, or content
@@ -79,3 +85,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Try MassCode Web today and supercharge your snippet management! 🚀**
+
+## 📈 Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=codebude/masscode-web&type=Date)](https://star-history.com/#codebude/masscode-web&Date)
