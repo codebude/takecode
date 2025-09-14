@@ -194,9 +194,10 @@ function getPrismLanguage(dbLanguage) {
     return languageMap[dbLanguage] || 'text';
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { getPrismLanguage, languageMap };
-} else if (typeof window !== 'undefined') {
+// Export for ES6 modules
+export { getPrismLanguage, languageMap };
+
+// Backward compatibility for non-module environments
+if (typeof window !== 'undefined') {
     window.LanguageMapper = { getPrismLanguage, languageMap };
 }
