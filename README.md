@@ -98,7 +98,7 @@ volumes:
 
 ### Configuration Options
 
-massCode Web supports several environment variables for customization:
+massCode Web supports environment variables for customization:
 
 #### SEARCH_HIGHLIGHT_LIMIT
 
@@ -121,17 +121,6 @@ environment:
 
 # Use default (3 matches)
 # No environment variable needed
-```
-
-**Usage with Docker Compose:**
-
-```bash
-# Set via environment variable
-SEARCH_HIGHLIGHT_LIMIT=10 docker-compose up -d
-
-# Or add to docker-compose.yml
-environment:
-  - SEARCH_HIGHLIGHT_LIMIT=10
 ```
 
 ### Manual Docker Run
