@@ -1,0 +1,87 @@
+/* Custom styles for tree and sidebar */
+#sidebar.sidebar-hidden {
+    display: none;
+}
+
+.tree {
+    list-style: none;
+    padding: 0;
+}
+
+.tree li {
+    margin: 0.25rem 0;
+}
+
+.tree .folder {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0.25rem 0;
+    transition: color 0.2s;
+}
+
+.tree .folder:hover {
+    color: #60a5fa;
+}
+
+.tree .folder:before {
+    content: '▶ ';
+    display: inline-block;
+    transition: transform 0.2s;
+}
+
+.tree .folder.open:before {
+    content: '▼ ';
+}
+
+.tree ul {
+    list-style: none;
+    padding-left: 1rem;
+    display: none;
+}
+
+.tree .folder.open + ul {
+    display: block;
+}
+
+.tree .snippet-item {
+    cursor: pointer;
+    padding: 0.25rem 0 0.25rem 1rem;
+    transition: background-color 0.2s;
+}
+
+.tree .snippet-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0.25rem;
+}
+
+.dark .tree .snippet-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Prism copy button styles */
+pre.relative {
+    position: relative;
+}
+
+.copy-to-clipboard-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 14px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.copy-to-clipboard-button:hover {
+    opacity: 1;
+}
+
+.dark .copy-to-clipboard-button {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
