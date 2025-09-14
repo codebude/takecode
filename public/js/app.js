@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Search functionality
     const clearSearchButton = document.getElementById('clear-search');
     searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase();
+        const query = e.target.value;
         const activeSnippets = dbData.snippets.filter(s => !s.isDeleted);
 
         if (query.trim() === '') {
@@ -299,11 +299,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function matchesQuery(text, query) {
         if (!query.trim()) return false;
         try {
-            const regex = new RegExp(query, 'i'); // case-insensitive
+            const regex = new RegExp(query); // case-sensitive
             return regex.test(text);
         } catch (error) {
             // If regex is invalid, fall back to literal string search
-            return text.toLowerCase().includes(query.toLowerCase());
+            return text.includes(query);
         }
     }
 
@@ -313,13 +313,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Try to use the query as a regex pattern
-            const regex = new RegExp(`(${query})`, 'gi');
-            return text.replace(regex, '<mark class="search-highlight">$1</mark>');
+            const regex = new RegExp(`(${query})`, 'g'); // case-sensitive, global
+            let matchCount = 0;
+            return text.replace(regex, (match, group1) => {
+                matchCount++;
+                if (matchCount <= 3) {
+                    return `<mark class="search-highlight">${group1}</mark>`;
+                }
+                return group1; // Return without highlighting for matches beyond 3
+            });
         } catch (error) {
             // If regex is invalid, escape special characters and search as literal string
             const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const regex = new RegExp(`(${escapedQuery})`, 'gi');
-            return text.replace(regex, '<mark class="search-highlight">$1</mark>');
+            const regex = new RegExp(`(${escapedQuery})`, 'g');
+            let matchCount = 0;
+            return text.replace(regex, (match, group1) => {
+                matchCount++;
+                if (matchCount <= 3) {
+                    return `<mark class="search-highlight">${group1}</mark>`;
+                }
+                return group1; // Return without highlighting for matches beyond 3
+            });
         }
     }
 
