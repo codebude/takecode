@@ -77,7 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load db.json
     fetch('data/db.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            return response.json();
+        })
         .then(data => {
             dbData = data;
             const activeSnippets = data.snippets.filter(s => !s.isDeleted);
@@ -88,7 +93,37 @@ document.addEventListener('DOMContentLoaded', () => {
             loadedCount += initialBatch.length;
             renderTree(data.folders, activeSnippets);
         })
-        .catch(error => console.error('Error loading db.json:', error));
+        .catch(error => {
+            console.error('Error loading db.json:', error);
+            // Show prominent error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'fixed inset-0 bg-red-50 dark:bg-red-900 flex items-center justify-center z-50';
+            errorDiv.innerHTML = `
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 max-w-md mx-4 text-center border-2 border-red-200 dark:border-red-700">
+                    <div class="text-red-600 dark:text-red-400 mb-4">
+                        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Database File Missing</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        The <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">db.json</code> file could not be found or loaded.
+                    </p>
+                    <div class="text-left bg-gray-50 dark:bg-gray-700 p-4 rounded mb-6">
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mb-2"><strong>To fix this:</strong></p>
+                        <ol class="text-sm text-gray-600 dark:text-gray-400 list-decimal list-inside space-y-1">
+                            <li>Ensure <code>db.json</code> exists in the <code>data/</code> directory</li>
+                            <li>Check that the file is accessible and not corrupted</li>
+                            <li>Verify the web server is serving static files correctly</li>
+                        </ol>
+                    </div>
+                    <button onclick="location.reload()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                        Retry
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(errorDiv);
+        });
 
     // Search functionality
     const clearSearchButton = document.getElementById('clear-search');
