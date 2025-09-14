@@ -1,0 +1,11 @@
+services:
+  masscode-web:
+    build:
+      context: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./db.json:/data/db.json:ro
+    environment:
+      - SEARCH_HIGHLIGHT_LIMIT=10
+    restart: unless-stopped
