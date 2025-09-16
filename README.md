@@ -24,7 +24,7 @@ A modern web interface for browsing and searching your massCode snippets with sy
 
 ![massCode Web Interface](img/masscode-screenshot.png)
 
-*Browse your massCode snippets with a clean, modern web interface featuring syntax highlighting, search, and tabbed code fragments.*
+*Browse your massCode snippets with a clean, modern web interface featuring syntax highlighting, (regex-)search, dark-/light-mode and tabbed code fragments.*
 
 ## 💡 Motivation
 
