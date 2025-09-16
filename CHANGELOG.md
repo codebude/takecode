@@ -5,6 +5,30 @@ All notable changes to **massCode Web** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-09-16
+
+### Fixed
+- **Infinite Scroll Functionality**: Fixed missing `loadMoreIfNeeded()` function that was causing ReferenceError and preventing proper batch loading
+- **HTML Rendering Bug**: HTML code snippets now display as syntax-highlighted code instead of rendered HTML by properly encoding HTML entities
+- **Search Navigation**: Fixed sidebar navigation for unloaded snippets by adding `ensureSnippetLoadedAndScroll()` function
+- **Batch Loading Logic**: Implemented proper viewport-aware initial loading (max 3 batches) to prevent loading all snippets at page load
+
+### Added
+- **Version Input for CI/CD**: Added optional version parameter to Docker build workflow for manual version specification
+- **Enhanced Tag Detection**: Improved Docker workflow to fetch all tags before checkout for better reliability
+
+### Changed
+- **Search Behavior**: Search now loads all matching results at once for complete visibility instead of using batch loading
+- **Workflow Optimization**: Simplified Docker build workflow tag detection logic using unified regex pattern
+- **Documentation**: Updated README to mention regex search and dark/light mode features
+
+### Technical Details
+- Added `loadMoreIfNeeded()` function with viewport detection and batch limiting
+- Implemented HTML entity encoding for HTML language snippets in `renderSnippets()`
+- Added `ensureSnippetLoadedAndScroll()` for on-demand snippet loading in sidebar navigation
+- Enhanced Docker workflow with conditional tag detection and version input parameter
+- Updated README description and screenshot to reflect current features
+
 ## [1.0.1] - 2025-09-16
 
 ### Fixed
