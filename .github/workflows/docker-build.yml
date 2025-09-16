@@ -26,17 +26,7 @@ jobs:
       run: |
         git fetch --tags
         
-        # First try to find the latest release (non-RC) version
-        RELEASE_TAG=$(git tag | grep '^v[0-9]\+\.[0-9]\+\.[0-9]\+$' | sort -V | tail -1)
-        
-        if [ -n "$RELEASE_TAG" ]; then
-          # Use the latest release if it exists
-          LATEST_TAG="$RELEASE_TAG"
-        else
-          # Fall back to the latest RC version
-          LATEST_TAG=$(git tag | grep '^v[0-9]\+\.[0-9]\+\.[0-9]\+-rc\.[0-9]\+$' | sort -V | tail -1)
-        fi
-        
+        LATEST_TAG=$(git tag | grep '^v[0-9]\+\.[0-9]\+\.[0-9]\+(-rc\.[0-9]\+)?$' | sort -V | tail -1)                
         if [ -z "$LATEST_TAG" ]; then
           echo "No version tags found"
           exit 1
