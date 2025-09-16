@@ -49,6 +49,7 @@ jobs:
 
     - name: Checkout tag
       run: |
+        git fetch --tags
         git checkout ${{ steps.version-tag.outputs.tag }}
 
     - name: Log in to GitHub Container Registry
