@@ -296,7 +296,13 @@ document.addEventListener('DOMContentLoaded', () => {
             e.target.classList.toggle('open');
         } else if (e.target.classList.contains('snippet-item')) {
             const snippetId = e.target.dataset.snippetId;
-            ensureSnippetLoadedAndScroll(snippetId);
+            // Reset search when clicking on sidebar item to show all snippets
+            searchInput.value = '';
+            searchInput.dispatchEvent(new Event('input'));
+            // Small delay to allow search reset to complete before scrolling
+            setTimeout(() => {
+                ensureSnippetLoadedAndScroll(snippetId);
+            }, 50);
         }
     });
 
