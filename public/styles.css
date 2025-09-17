@@ -150,3 +150,22 @@ pre.relative {
     background-color: #451a03;
     box-shadow: 0 0 0 1px #d97706;
 }
+
+/* Mobile responsive snippet styles */
+#snippets-container > div {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#snippets-container pre {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Ensure code blocks don't overflow on mobile */
+#snippets-container pre code {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
