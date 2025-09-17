@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.getElementById('sidebar');
     const sidebarBackdrop = document.getElementById('sidebar-backdrop');
     const themeToggle = document.getElementById('theme-toggle');
+    const searchInfoBar = document.getElementById('search-info-bar');
     let dbData = null;
     let currentSnippets = [];
     let loadedCount = 0;
@@ -220,6 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     highlightedValue: content.value // No highlighting
                 }))
             }));
+            
+            // Hide search info bar when no search is active
+            searchInfoBar.classList.add('hidden');
         } else {
             // Filter snippets and determine which tab should be active
             const filteredSnippets = activeSnippets.filter(snippet => {
@@ -265,6 +269,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }));
 
             currentSnippets = filteredSnippets;
+            
+            // Show search info bar with match information
+            const snippetCount = currentSnippets.length;
+            const totalSnippets = activeSnippets.length;
+            
+            // Count total matches across all snippets
+            let totalMatches = 0;
+            currentSnippets.forEach(snippet => {
+                // Count matches in name
+                if (matchesQuery(snippet.name, query)) {
+                    totalMatches++;
+                }
+                // Count matches in description
+                if (snippet.description && matchesQuery(snippet.description, query)) {
+                    totalMatches++;
+                }
+                // Count matches in content
+                snippet.content.forEach(content => {
+                    const highlighted = highlightSearchMatches(content.value, query);
+                    if (highlighted !== content.value) {
+                        // Count the number of <mark> tags (each represents a match)
+                        const matchCount = (highlighted.match(/<mark[^>]*>.*?<\/mark>/g) || []).length;
+                        totalMatches += matchCount;
+                    }
+                });
+            });
+            
+            searchInfoBar.innerHTML = `${totalMatches} match${totalMatches !== 1 ? 'es' : ''} found in ${snippetCount} snippet${snippetCount !== 1 ? 's' : ''}`;
+            searchInfoBar.classList.remove('hidden');
         }
 
         loadedCount = 0;
