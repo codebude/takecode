@@ -77,3 +77,12 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
           VERSION=${{ steps.version-tag.outputs.tag }}
+
+    - name: Trigger demo update
+      if: inputs.tag_as_latest == true
+      run: |
+        curl -X POST \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/dispatches \
+          -d '{"event_type": "deploy-demo"}'

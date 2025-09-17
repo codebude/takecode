@@ -2,6 +2,8 @@ name: Update Live Demo
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types: [deploy-demo]
 
 jobs:
   deploy:
