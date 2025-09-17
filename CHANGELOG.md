@@ -5,6 +5,29 @@ All notable changes to **massCode Web** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2025-09-17
+
+### Fixed
+- **Mobile Responsiveness**: Fixed header overflow on small screens by implementing responsive flex-wrap layout
+- **Search Box Positioning**: Fixed search box overflow on mobile devices with proper responsive margins
+- **Snippet Container Overflow**: Fixed snippet content overflow on both mobile and desktop by implementing viewport width constraints
+- **Desktop Sidebar Overflow**: Fixed content overflow when sidebar is open on desktop using responsive CSS with calc() functions and sibling selectors
+
+### Added
+- **Live Demo**: Added live demo section to README with link to https://masscodeweb.code-bude.net/
+- **GitHub Actions Workflow**: Added manual workflow for updating live demo via SSH and Docker Compose
+- **Automatic Demo Updates**: Modified build workflow to automatically trigger demo updates when tagging builds as latest
+- **SSH Passphrase Support**: Added passphrase parameter support to SSH action for encrypted private keys
+
+### Changed
+- **Workflow Triggers**: Updated demo update workflow to support both manual and automatic triggers via repository dispatch
+
+### Technical Details
+- Implemented responsive CSS rules with viewport width calculations for sidebar state detection
+- Added repository dispatch event handling for workflow chaining
+- Enhanced SSH authentication with passphrase support for secure server access
+- Updated README table of contents to include live demo section
+
 ## [1.0.2] - 2025-09-16
 
 ### Fixed
