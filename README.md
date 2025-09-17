@@ -5,9 +5,11 @@ A modern web interface for browsing and searching your massCode snippets with sy
 [![Docker](https://img.shields.io/badge/Docker-Ready-green?style=flat-square&logo=docker)](#using-docker-compose-recommended)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE.txt)
 
+
 ## 📜 Table of Contents
 
 - [📸 Screenshot](#-screenshot)
+- [🌐 Live Demo](#-live-demo)
 - [💡 Motivation](#-motivation)
 - [⚠️ Affiliation & Disclaimer](#️-affiliation--disclaimer)
 - [✨ Features](#-features)
@@ -15,7 +17,6 @@ A modern web interface for browsing and searching your massCode snippets with sy
   - [Finding Your massCode Database](#finding-your-masscode-database)
   - [Using Docker Compose](#using-docker-compose-recommended)
   - [Manual Docker Run](#manual-docker-run)
-- [🎯 What is massCode?](#-what-is-masscode)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [📈 Star History](#-star-history)
@@ -25,6 +26,10 @@ A modern web interface for browsing and searching your massCode snippets with sy
 ![massCode Web Interface](img/masscode-screenshot.png)
 
 *Browse your massCode snippets with a clean, modern web interface featuring syntax highlighting, (regex-)search, dark-/light-mode and tabbed code fragments.*
+
+## 🌐 Live Demo
+
+Check out the live demo at [https://masscodeweb.code-bude.net/](https://masscodeweb.code-bude.net/)
 
 ## 💡 Motivation
 
@@ -128,10 +133,6 @@ environment:
 ```bash
 docker run -d -p 8080:80 -v /path/to/your/db.json:/data/db.json:ro ghcr.io/codebude/masscode-web:latest
 ```
-
-## 🎯 What is massCode?
-
-This project is a web frontend for [massCode](https://masscode.io/), the ultimate code snippet manager for developers. massCode is a free and open-source code snippets manager, built with Electron & Vue.js.
 
 ## 🤝 Contributing
 
