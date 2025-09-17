@@ -158,14 +158,58 @@ pre.relative {
     box-sizing: border-box;
 }
 
+/* Desktop: when sidebar is open (default), account for sidebar width */
+@media (min-width: 768px) {
+    #snippets-container {
+        max-width: calc(100vw - 20rem); /* 20rem = w-80 (sidebar width) */
+        width: calc(100vw - 20rem);
+    }
+}
+
+/* Desktop: when sidebar is hidden, use full viewport width */
+@media (min-width: 768px) {
+    #sidebar.sidebar-hidden ~ main #snippets-container {
+        max-width: 100vw;
+        width: 100vw;
+    }
+}
+
 #snippets-container > div {
     max-width: calc(100vw - 2rem); /* Account for container padding */
     box-sizing: border-box;
 }
 
+/* Desktop: adjust snippet max-width when sidebar is open */
+@media (min-width: 768px) {
+    #snippets-container > div {
+        max-width: calc(100vw - 22rem); /* 20rem sidebar + 2rem padding */
+    }
+}
+
+/* Desktop: when sidebar is hidden, use full width for snippets */
+@media (min-width: 768px) {
+    #sidebar.sidebar-hidden ~ main #snippets-container > div {
+        max-width: calc(100vw - 2rem);
+    }
+}
+
 #snippets-container pre {
     max-width: calc(100vw - 4rem); /* Account for container + snippet padding */
     box-sizing: border-box;
+}
+
+/* Desktop: adjust code block max-width when sidebar is open */
+@media (min-width: 768px) {
+    #snippets-container pre {
+        max-width: calc(100vw - 24rem); /* 20rem sidebar + 4rem padding */
+    }
+}
+
+/* Desktop: when sidebar is hidden, use full width for code blocks */
+@media (min-width: 768px) {
+    #sidebar.sidebar-hidden ~ main #snippets-container pre {
+        max-width: calc(100vw - 4rem);
+    }
 }
 
 /* Ensure code blocks don't overflow on mobile */
