@@ -131,7 +131,11 @@ environment:
 ### Manual Docker Run
 
 ```bash
+# Using GitHub Container Registry
 docker run -d -p 8080:80 -v /path/to/your/db.json:/data/db.json:ro ghcr.io/codebude/masscode-web:latest
+
+# Or using Docker Hub
+docker run -d -p 8080:80 -v /path/to/your/db.json:/data/db.json:ro docker.io/codebude/masscode-web:latest
 ```
 
 ## 🤝 Contributing
