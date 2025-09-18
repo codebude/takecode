@@ -92,20 +92,6 @@ You can also use massCode Web with databases stored on network drives or shared 
    http://localhost:8080
    ```
 
-### Using Docker Hub (Alternative)
-
-If you prefer to use Docker Hub directly instead of Docker Compose:
-
-```bash
-docker run -d \
-  --name masscode-web \
-  -p 8080:80 \
-  -v /path/to/your/masscode/db.json:/data/db.json:ro \
-  docker.io/codebude/masscode-web:latest
-```
-
-Then open `http://localhost:8080` in your browser.
-
 ### Volume Mapping
 
 The `docker-compose.yml` includes a volume mount that maps your local `db.json` file to the container:
@@ -151,7 +137,7 @@ environment:
 docker run -d -p 8080:80 -v /path/to/your/db.json:/data/db.json:ro ghcr.io/codebude/masscode-web:latest
 
 # Or using Docker Hub
-docker run -d -p 8080:80 -v /path/to/your/db.json:/data/db.json:ro docker.io/codebude/masscode-web:latest
+docker run -d -p 8080:80 -v /path/to/your/db.json:/data/db.json:ro codebude/masscode-web:latest
 ```
 
 ## 🤝 Contributing
