@@ -3,7 +3,7 @@
 A modern web interface for browsing and searching your massCode snippets with syntax highlighting, themes, and copy-to-clipboard functionality.
 
 [![Docker](https://img.shields.io/badge/Docker-Ready-green?style=flat-square&logo=docker)](#using-docker-compose-recommended)
-[![Docker Hub](https://img.shields.io/docker/pulls/codebude/masscode-web?logo=docker)](https://hub.docker.com/r/codebude/masscode-web)
+[![Docker Hub](https://img.shields.io/docker/pulls/codebude/masscode-web?style=flat-square&logo=docker)](https://hub.docker.com/r/codebude/masscode-web)
 [![GHCR](https://img.shields.io/badge/GHCR-Ready-blue?style=flat-square&logo=github)](https://github.com/codebude/masscode-web/pkgs/container/masscode-web)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE.txt)
 
