@@ -1,6 +1,7 @@
 services:
   masscode-web:
     image: ghcr.io/codebude/masscode-web:latest
+    # image: docker.io/codebude/masscode-web:latest
     ports:
       - "8080:80"
     volumes:
