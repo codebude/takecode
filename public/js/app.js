@@ -686,4 +686,49 @@ document.addEventListener('DOMContentLoaded', () => {
         const tree = buildTree(rootFolders);
         document.getElementById('sidebar-content').appendChild(tree);
     }
+
+    // About modal functionality
+    const aboutBtn = document.getElementById('about-btn');
+    const aboutModal = document.getElementById('about-modal');
+    const closeAboutModal = document.getElementById('close-about-modal');
+    const aboutContent = document.getElementById('about-content');
+
+    function showAboutModal() {
+        // Load about content
+        fetch('pages/about.html')
+            .then(response => response.text())
+            .then(html => {
+                aboutContent.innerHTML = html;
+                aboutModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            })
+            .catch(error => {
+                console.error('Error loading about content:', error);
+                aboutContent.innerHTML = '<p class="text-red-500">Error loading about content.</p>';
+                aboutModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+    }
+
+    function hideAboutModal() {
+        aboutModal.classList.add('hidden');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    aboutBtn.addEventListener('click', showAboutModal);
+    closeAboutModal.addEventListener('click', hideAboutModal);
+
+    // Close modal when clicking outside
+    aboutModal.addEventListener('click', (e) => {
+        if (e.target === aboutModal) {
+            hideAboutModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !aboutModal.classList.contains('hidden')) {
+            hideAboutModal();
+        }
+    });
 });
