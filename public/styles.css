@@ -62,6 +62,10 @@
     color: #1f2937;
 }
 
+.dark .tree .folder:hover {
+    color: #f3f4f6;
+}
+
 .tree .folder:before {
     content: '▶ ';
     display: inline-block;
@@ -147,8 +151,9 @@ pre.relative {
 }
 
 .dark .search-highlight {
-    background-color: #451a03;
-    box-shadow: 0 0 0 1px #d97706;
+    background-color: #fef3c7;
+    color: #1f2937;
+    box-shadow: 0 0 0 1px #f59e0b;
 }
 
 /* Mobile responsive snippet styles */
