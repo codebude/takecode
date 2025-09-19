@@ -422,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function highlightSearchMatches(text, query) {
         if (!query.trim()) return text;
 
-        const highlightLimit = window.MASSCODE_CONFIG?.SEARCH_HIGHLIGHT_LIMIT ?? 3;
+        const highlightLimit = window.TAKECODE_CONFIG?.SEARCH_HIGHLIGHT_LIMIT ?? 3;
 
         try {
             // Try to use the query as a regex pattern

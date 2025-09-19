@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to **massCode Web** will be documented in this file.
+All notable changes to **takeCode** will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - **Docker Hub Publishing**: Enhanced build workflow to publish Docker images to both GitHub Container Registry and Docker Hub
-- **Multi-Registry Support**: Images now available on both `ghcr.io/codebude/masscode-web` and `docker.io/codebude/masscode-web`
+- **Multi-Registry Support**: Images now available on both `ghcr.io/codebude/takecode` and `docker.io/codebude/takecode`
 
 ### Technical Details
 - Updated workflow permissions from `contents: read` to `contents: write` for repository dispatch functionality
@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Desktop Sidebar Overflow**: Fixed content overflow when sidebar is open on desktop using responsive CSS with calc() functions and sibling selectors
 
 ### Added
-- **Live Demo**: Added live demo section to README with link to https://masscodeweb.code-bude.net/
+- **Live Demo**: Added live demo section to README with link to https://demo.take-code.dev/
 - **GitHub Actions Workflow**: Added manual workflow for updating live demo via SSH and Docker Compose
 - **Automatic Demo Updates**: Modified build workflow to automatically trigger demo updates when tagging builds as latest
 
@@ -183,4 +183,4 @@ This project uses [Semantic Versioning](https://semver.org/):
 - 🐛 **Fixed** - Bug fixes
 - 🗑️ **Removed** - Removed features
 - 🚨 **Breaking** - Breaking changes</content>
-<parameter name="filePath">/home/raffael/git/masscode-web/CHANGELOG.md
+<parameter name="filePath">/home/raffael/git/takecode/CHANGELOG.md

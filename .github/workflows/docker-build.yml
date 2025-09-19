@@ -72,7 +72,7 @@ jobs:
       with:
         images: |
           ghcr.io/${{ github.repository }}
-          docker.io/codebude/masscode-web
+          docker.io/codebude/takecode
         tags: |
           type=raw,value=${{ steps.version-tag.outputs.tag }}
           type=raw,value=latest,enable=${{ inputs.tag_as_latest }}

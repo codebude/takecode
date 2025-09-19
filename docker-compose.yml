@@ -1,7 +1,7 @@
 services:
-  masscode-web:
-    image: ghcr.io/codebude/masscode-web:latest
-    # image: codebude/masscode-web:latest
+  takecode:
+    image: ghcr.io/codebude/takecode:latest
+    # image: codebude/takecode:latest
     ports:
       - "8080:80"
     volumes:

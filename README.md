@@ -1,10 +1,10 @@
-# massCode Web
+# takeCode
 
 A modern web interface for browsing and searching your massCode snippets with syntax highlighting, themes, and copy-to-clipboard functionality.
 
 [![Docker](https://img.shields.io/badge/Docker-Ready-green?style=flat-square&logo=docker)](#using-docker-compose-recommended)
-[![Docker Hub](https://img.shields.io/docker/pulls/codebude/masscode-web?style=flat-square&logo=docker)](https://hub.docker.com/r/codebude/masscode-web)
-[![GHCR](https://img.shields.io/badge/GHCR-Ready-blue?style=flat-square&logo=github)](https://github.com/codebude/masscode-web/pkgs/container/masscode-web)
+[![Docker Hub](https://img.shields.io/docker/pulls/codebude/takecode?style=flat-square&logo=docker)](https://hub.docker.com/r/codebude/takecode)
+[![GHCR](https://img.shields.io/badge/GHCR-Ready-blue?style=flat-square&logo=github)](https://github.com/codebude/takecode/pkgs/container/takecode)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE.txt)
 
 
@@ -25,17 +25,17 @@ A modern web interface for browsing and searching your massCode snippets with sy
 
 ## 📸 Screenshot
 
-![massCode Web Interface](img/masscode-screenshot.png)
+![takeCode Interface](img/takecode-screenshot.png)
 
 *Browse your massCode snippets with a clean, modern web interface featuring syntax highlighting, (regex-)search, dark-/light-mode and tabbed code fragments.*
 
 ## 🌐 Live Demo
 
-Check out the live demo at [https://masscodeweb.code-bude.net/](https://masscodeweb.code-bude.net/)
+Check out the live demo at [https://demo.take-code.dev/](https://demo.take-code.dev/)
 
 ## 💡 Motivation
 
-I love [massCode](https://masscode.io/) - it's an amazing code snippet manager that helps me organize and access my code snippets efficiently. However, sometimes I work on devices where I can't install the desktop client (like company laptops, shared computers, or restricted environments). To still have access to my snippets, I created massCode Web - a lightweight web interface that works with massCode's database files.
+I love [massCode](https://masscode.io/) - it's an amazing code snippet manager that helps me organize and access my code snippets efficiently. However, sometimes I work on devices where I can't install the desktop client (like company laptops, shared computers, or restricted environments). To still have access to my snippets, I created takeCode - a lightweight web interface that works with massCode's database files.
 
 ## ⚠️ Affiliation & Disclaimer
 
@@ -54,7 +54,7 @@ I love [massCode](https://masscode.io/) - it's an amazing code snippet manager t
 
 ### Finding Your massCode Database
 
-massCode Web works by reading your existing massCode `db.json` file. Here's how to locate it:
+takeCode works by reading your existing massCode `db.json` file. Here's how to locate it:
 
 #### On Different Operating Systems:
 
@@ -66,13 +66,13 @@ For more details, check the [massCode documentation on data storage](https://mas
 
 #### Shared/Network Databases
 
-You can also use massCode Web with databases stored on network drives or shared locations. Simply mount the network drive and point the volume mapping to the shared `db.json` file path.
+You can also use takeCode with databases stored on network drives or shared locations. Simply mount the network drive and point the volume mapping to the shared `db.json` file path.
 
 ### Using Docker Compose (Recommended)
 
 1. **Download the docker-compose.yml**:
    ```bash
-   wget https://raw.githubusercontent.com/codebude/masscode-web/main/docker-compose.yml
+   wget https://raw.githubusercontent.com/codebude/takecode/main/docker-compose.yml
    ```
 
 2. **Edit the volume mapping**:
@@ -105,7 +105,7 @@ volumes:
 
 ### Configuration Options
 
-massCode Web supports environment variables for customization:
+takeCode supports environment variables for customization:
 
 #### SEARCH_HIGHLIGHT_LIMIT
 
@@ -134,17 +134,17 @@ environment:
 
 ```bash
 # Using GitHub Container Registry
-docker run -d -p 8080:80 -v /path/to/your/db.json:/data/db.json:ro ghcr.io/codebude/masscode-web:latest
+docker run -d -p 8080:80 -v /path/to/your/db.json:/data/db.json:ro ghcr.io/codebude/takecode:latest
 
 # Or using Docker Hub
-docker run -d -p 8080:80 -v /path/to/your/db.json:/data/db.json:ro codebude/masscode-web:latest
+docker run -d -p 8080:80 -v /path/to/your/db.json:/data/db.json:ro codebude/takecode:latest
 ```
 
 ## 🤝 Contributing
 
 Found a bug or have a feature request? Feel free to:
-- [Open an issue](https://github.com/codebude/masscode-web/issues)
-- [Create a pull request](https://github.com/codebude/masscode-web/pulls)
+- [Open an issue](https://github.com/codebude/takecode/issues)
+- [Create a pull request](https://github.com/codebude/takecode/pulls)
 - ⭐ Star the repository if you find it useful!
 
 ## 📄 License
@@ -153,8 +153,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Try massCode Web today and supercharge your snippet management! 🚀**
+**Try takeCode today and supercharge your snippet management! 🚀**
 
 ## 📈 Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=codebude/masscode-web&type=Date)](https://www.star-history.com/#codebude/masscode-web&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=codebude/takecode&type=Date)](https://www.star-history.com/#codebude/takecode&Date)
