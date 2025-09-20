@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Button Styling**: Styled about button as proper themed button with consistent appearance
 
 ### Added
-- **Local Asset Hosting**: Downloaded external JS/CSS files (Prism.js, Tailwind CSS) locally for better performance and reliability
+- **Local Asset Hosting**: Downloaded external JS/CSS files locally for better performance and reliability
 - **Build Pipeline Optimization**: Streamlined CI/CD pipeline by removing redundant operations and improving build efficiency
 - **Documentation Structure**: Improved README organization with dedicated development setup section
 

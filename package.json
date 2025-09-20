@@ -1,7 +1,7 @@
 {
-  "name": "masscode-web",
-  "version": "1.0.4",
-  "description": "A web interface for massCode",
+  "name": "takecode",
+  "version": "X.X.X",
+  "description": "A web interface for takeCode",
   "main": "index.js",
   "scripts": {
     "build": "rm -f public/styles.css && npm run version:sync && npm run build-css-prod && echo '✅ Build completed successfully'",
