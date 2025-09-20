@@ -1,3 +1,230 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom styles for tree and sidebar */
+#sidebar.sidebar-hidden {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#sidebar.sidebar-hidden.md\:sidebar-hidden {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Mobile sidebar overlay styles */
+#sidebar {
+    transition: width 0.3s ease-in-out, padding 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Mobile sidebar shown state */
+#sidebar.sidebar-mobile-open {
+    transform: translateX(0);
+}
+
+/* Mobile sidebar hidden state */
+#sidebar.sidebar-mobile-hidden {
+    transform: translateX(-100%);
+}
+
+/* Mobile backdrop when sidebar is open */
+#sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+#sidebar-backdrop.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.tree {
+    list-style: none;
+    padding: 0;
+}
+
+.tree li {
+    margin: 0.25rem 0;
+}
+
+.tree .folder {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0.25rem 0;
+    transition: color 0.2s;
+}
+
+.tree .folder:hover {
+    color: #1f2937;
+}
+
+.dark .tree .folder:hover {
+    color: #f3f4f6;
+}
+
+.tree .folder:before {
+    content: '▶ ';
+    display: inline-block;
+    transition: transform 0.2s;
+}
+
+.tree .folder.open:before {
+    content: '▼ ';
+}
+
+.tree ul {
+    list-style: none;
+    padding-left: 1rem;
+    display: none;
+}
+
+.tree .folder.open + ul {
+    display: block;
+}
+
+.tree .snippet-item {
+    cursor: pointer;
+    padding: 0.25rem 0 0.25rem 1rem;
+    transition: background-color 0.2s;
+}
+
+.tree .snippet-item:hover {
+    background-color: rgba(156, 163, 175, 0.1);
+    border-radius: 0.25rem;
+}
+
+.dark .tree .snippet-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Prism copy button styles */
+pre.relative {
+    position: relative;
+}
+
+.copy-to-clipboard-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 14px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.copy-to-clipboard-button:hover {
+    opacity: 1;
+}
+
+.dark .copy-to-clipboard-button {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Tab panel transitions */
+.tab-panel {
+    transition: opacity 0.2s ease-in-out;
+}
+
+.tab-panel.block {
+    opacity: 1;
+}
+
+.tab-panel.hidden {
+    opacity: 0;
+}
+
+/* Search highlight styles */
+.search-highlight {
+    background-color: #fef3c7;
+    border-radius: 2px;
+    padding: 1px 2px;
+    box-shadow: 0 0 0 1px #f59e0b;
+}
+
+.dark .search-highlight {
+    background-color: #fef3c7;
+    color: #1f2937;
+    box-shadow: 0 0 0 1px #f59e0b;
+}
+
+/* Mobile responsive snippet styles */
+#snippets-container {
+    max-width: 100vw;
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+/* Desktop: when sidebar is open (default), account for sidebar width */
+@media (min-width: 768px) {
+    #snippets-container {
+        max-width: calc(100vw - 20rem); /* 20rem = w-80 (sidebar width) */
+        width: calc(100vw - 20rem);
+    }
+}
+
+/* Desktop: when sidebar is hidden, use full viewport width */
+@media (min-width: 768px) {
+    #sidebar.sidebar-hidden ~ main #snippets-container {
+        max-width: 100vw;
+        width: 100vw;
+    }
+}
+
+#snippets-container > div {
+    max-width: calc(100vw - 2rem); /* Account for container padding */
+    box-sizing: border-box;
+}
+
+/* Desktop: adjust snippet max-width when sidebar is open */
+@media (min-width: 768px) {
+    #snippets-container > div {
+        max-width: calc(100vw - 22rem); /* 20rem sidebar + 2rem padding */
+    }
+}
+
+/* Desktop: when sidebar is hidden, use full width for snippets */
+@media (min-width: 768px) {
+    #sidebar.sidebar-hidden ~ main #snippets-container > div {
+        max-width: calc(100vw - 2rem);
+    }
+}
+
+#snippets-container pre {
+    max-width: calc(100vw - 4rem); /* Account for container + snippet padding */
+    box-sizing: border-box;
+}
+
+/* Desktop: adjust code block max-width when sidebar is open */
+@media (min-width: 768px) {
+    #snippets-container pre {
+        max-width: calc(100vw - 24rem); /* 20rem sidebar + 4rem padding */
+    }
+}
+
+/* Desktop: when sidebar is hidden, use full width for code blocks */
+@media (min-width: 768px) {
+    #sidebar.sidebar-hidden ~ main #snippets-container pre {
+        max-width: calc(100vw - 4rem);
+    }
+}
+
+/* Ensure code blocks don't overflow on mobile */
+#snippets-container pre code {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
