@@ -26,7 +26,7 @@ A modern web interface for browsing and searching your massCode snippets with sy
 
 ## 📸 Screenshot
 
-![takeCode Interface](img/takecode-screenshot.png)
+![takeCode Interface](img/takecode-screenshot.png?v=1)
 
 *Browse your massCode snippets with a clean, modern web interface featuring syntax highlighting, (regex-)search, dark-/light-mode and tabbed code fragments.*
 
