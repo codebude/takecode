@@ -150,19 +150,14 @@ If you want to contribute or modify the styles:
    npm install
    ```
 
-2. **Build CSS for development** (with file watching):
-   ```bash
-   npm run build-css
-   ```
-
-3. **Build CSS for production**:
-   ```bash
-   npm run build-css-prod
-   ```
-
-4. **Build CSS and run dev server**:
+3. **Build CSS and run dev server**:
 ```bash
 npm run dev
+```
+
+3. **Build production CSS and update version**:
+```bash
+npm run build
 ```
 
 

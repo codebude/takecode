@@ -1,17 +1,19 @@
 {
   "name": "masscode-web",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "A web interface for massCode",
   "main": "index.js",
   "scripts": {
+    "build": "rm -f public/styles.css && npm run version:sync && npm run build-css-prod && echo '✅ Build completed successfully'",
     "dev": "npm run build-css & cd public && python3 -m http.server 8000",
     "build-css": "tailwindcss -i ./src/input.css -o ./public/styles.css --watch",
-    "build-css-prod": "tailwindcss -i ./src/input.css -o ./public/styles.css --minify"
+    "build-css-prod": "tailwindcss -i ./src/input.css -o ./public/styles.css --minify",
+    "version:sync": "node -e \"const fs = require('fs'); const { execSync } = require('child_process'); const tag = execSync('git describe --tags --abbrev=0').toString().trim().replace(/^v/, ''); const pkg = JSON.parse(fs.readFileSync('package.json')); pkg.version = tag; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\\n'); console.log('Updated version to:', tag);\""
   },
   "devDependencies": {
     "tailwindcss": "^3.4.0"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Raffael Herrmann",
+  "license": "MIT"
 }
