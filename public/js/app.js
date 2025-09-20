@@ -208,6 +208,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Search functionality
     const clearSearchButton = document.getElementById('clear-search');
     searchInput.addEventListener('input', (e) => {
+        // Scroll to top of snippet list when search changes
+        snippetsContainer.scrollTop = 0;
+
         const query = e.target.value;
         const activeSnippets = dbData.snippets.filter(s => !s.isDeleted);
 
