@@ -17,9 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function setPrismTheme(isDark) {
         const prismLink = document.getElementById('prism-theme');
         if (isDark) {
-            prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css';
+            prismLink.href = 'ext/prism-okaidia.min.css';
         } else {
-            prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
+            prismLink.href = 'ext/prism.min.css';
         }
     }
 
