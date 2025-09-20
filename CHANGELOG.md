@@ -5,6 +5,24 @@ All notable changes to **takeCode** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 2025-09-20
+
+### Fixed
+- **XML/HTML Search Highlighting**: Fixed search highlighting for XML/HTML snippets that was causing content loss by preserving `<mark>` tags during HTML entity encoding
+- **Prism Theme Loading**: Replaced external CDN dependencies for Prism themes with local files for better reliability and performance
+
+### Added
+- **Search Auto-Scroll**: Automatically scroll snippet list to top when search input changes for better user experience
+- **Local Prism Themes**: Downloaded and integrated Prism.js theme files locally (light and dark themes)
+
+### Changed
+- **Prism Light Theme**: Updated Prism.js light theme CSS for improved syntax highlighting readability
+
+### Technical Details
+- Modified `encodeHtmlEntities()` function to preserve search highlighting markup in XML/HTML content
+- Updated theme loading to use local CSS files instead of external CDN resources
+- Added scroll-to-top behavior in search input event handler for improved UX
+
 ## [1.0.5] - 2025-09-20
 
 ### Fixed
