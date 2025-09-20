@@ -52,6 +52,25 @@ I love [massCode](https://masscode.io/) - it's an amazing code snippet manager t
 
 ## 🚀 Quick Start
 
+### Development Setup
+
+If you want to contribute or modify the styles:
+
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Build CSS for development** (with file watching):
+   ```bash
+   npm run build-css
+   ```
+
+3. **Build CSS for production**:
+   ```bash
+   npm run build-css-prod
+   ```
+
 ### Finding Your massCode Database
 
 takeCode works by reading your existing massCode `db.json` file. Here's how to locate it:

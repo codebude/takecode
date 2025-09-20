@@ -1,0 +1,17 @@
+{
+  "name": "masscode-web",
+  "version": "1.0.0",
+  "description": "A web interface for massCode",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run build-css & cd public && python3 -m http.server 8000",
+    "build-css": "tailwindcss -i ./src/input.css -o ./public/styles.css --watch",
+    "build-css-prod": "tailwindcss -i ./src/input.css -o ./public/styles.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
