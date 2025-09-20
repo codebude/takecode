@@ -19,6 +19,7 @@ A modern web interface for browsing and searching your massCode snippets with sy
   - [Finding Your massCode Database](#finding-your-masscode-database)
   - [Using Docker Compose](#using-docker-compose-recommended)
   - [Manual Docker Run](#manual-docker-run)
+- [🔧 Development](#development-setup)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [📈 Star History](#-star-history)
@@ -51,25 +52,6 @@ I love [massCode](https://masscode.io/) - it's an amazing code snippet manager t
 - 🐳 **Docker Ready**: Easy deployment with Docker Compose
 
 ## 🚀 Quick Start
-
-### Development Setup
-
-If you want to contribute or modify the styles:
-
-1. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-2. **Build CSS for development** (with file watching):
-   ```bash
-   npm run build-css
-   ```
-
-3. **Build CSS for production**:
-   ```bash
-   npm run build-css-prod
-   ```
 
 ### Finding Your massCode Database
 
@@ -158,6 +140,31 @@ docker run -d -p 8080:80 -v /path/to/your/db.json:/data/db.json:ro ghcr.io/codeb
 # Or using Docker Hub
 docker run -d -p 8080:80 -v /path/to/your/db.json:/data/db.json:ro codebude/takecode:latest
 ```
+
+## 🔧 Development Setup
+
+If you want to contribute or modify the styles:
+
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Build CSS for development** (with file watching):
+   ```bash
+   npm run build-css
+   ```
+
+3. **Build CSS for production**:
+   ```bash
+   npm run build-css-prod
+   ```
+
+4. **Build CSS and run dev server**:
+```bash
+npm run dev
+```
+
 
 ## 🤝 Contributing
 
