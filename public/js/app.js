@@ -695,13 +695,31 @@ function needsHtmlEncoding(language) {
     return languagesNeedingHtmlEncoding.includes(getPrismLanguage(language));
 }
 
-// Function to encode HTML entities
+// Function to encode HTML entities while preserving <mark> tags
 function encodeHtmlEntities(text) {
-    return text.replace(/&/g, '&amp;')
-               .replace(/</g, '&lt;')
-               .replace(/>/g, '&gt;')
-               .replace(/"/g, '&quot;')
-               .replace(/'/g, '&#39;');
+    // First, temporarily replace <mark> tags with placeholders
+    const markTagRegex = /<mark[^>]*>.*?<\/mark>/gi;
+    const placeholders = [];
+    let placeholderIndex = 0;
+
+    // Replace <mark> tags with placeholders
+    const textWithoutMarks = text.replace(markTagRegex, (match) => {
+        placeholders.push(match);
+        return `__MARK_PLACEHOLDER_${placeholderIndex++}__`;
+    });
+
+    // Encode HTML entities in the text without <mark> tags
+    const encodedText = textWithoutMarks
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+
+    // Restore <mark> tags
+    return encodedText.replace(/__MARK_PLACEHOLDER_(\d+)__/g, (match, index) => {
+        return placeholders[parseInt(index)];
+    });
 }
     const aboutBtn = document.getElementById('about-btn');
     const aboutModal = document.getElementById('about-modal');
