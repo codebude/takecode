@@ -5,6 +5,28 @@ All notable changes to **takeCode** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2025-09-20
+
+### Fixed
+- **Tailwind CSS Build Process**: Fixed custom styles not being included in production builds by properly configuring Tailwind CLI
+- **Dark Theme Styling**: Resolved dark theme styling inconsistencies and improved theme switching reliability
+- **About Modal**: Completed about modal implementation with proper licensing information display
+- **Button Styling**: Styled about button as proper themed button with consistent appearance
+
+### Added
+- **Local Asset Hosting**: Downloaded external JS/CSS files (Prism.js, Tailwind CSS) locally for better performance and reliability
+- **Build Pipeline Optimization**: Streamlined CI/CD pipeline by removing redundant operations and improving build efficiency
+- **Documentation Structure**: Improved README organization with dedicated development setup section
+
+### Changed
+- **Project Rebranding**: Officially rebranded from "massCode Web" to "takeCode" across all documentation and branding
+- **Docker Registry**: Updated Docker image references to use Docker Hub registry (`docker.io/codebude/takecode`)
+
+### Technical Details
+- Properly integrated Tailwind CSS with CLI build process instead of hardcoded scripts
+- Enhanced build pipeline to remove redundant CSS file operations
+- Consolidated development setup instructions in README for better clarity
+
 ## [1.0.4] - 2025-09-18
 
 ### Fixed
