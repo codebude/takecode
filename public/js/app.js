@@ -498,9 +498,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     code.className = `language-${getPrismLanguage(content.language)}`;
                     // Use highlighted content if available, otherwise use original content
                     const displayContent = highlightedContent.highlightedValue || content.value;
-                    // For HTML content, encode HTML entities to prevent rendering
-                    const finalContent = getPrismLanguage(content.language) === 'html'
-                        ? displayContent.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
+                    // For languages with HTML/XML-like syntax, encode HTML entities to prevent rendering
+                    const finalContent = needsHtmlEncoding(content.language)
+                        ? encodeHtmlEntities(displayContent)
                         : displayContent;
                     code.innerHTML = finalContent;
                     pre.appendChild(code);
@@ -567,9 +567,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Use highlighted content if available, otherwise use original content
                     const highlightedContent = snippet.highlightedContent ? snippet.highlightedContent[index] : content;
                     const displayContent = highlightedContent.highlightedValue || content.value;
-                    // For HTML content, encode HTML entities to prevent rendering
-                    const finalContent = getPrismLanguage(content.language) === 'html'
-                        ? displayContent.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
+                    // For languages with HTML/XML-like syntax, encode HTML entities to prevent rendering
+                    const finalContent = needsHtmlEncoding(content.language)
+                        ? encodeHtmlEntities(displayContent)
                         : displayContent;
                     code.innerHTML = finalContent;
                     pre.appendChild(code);
@@ -687,7 +687,22 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('sidebar-content').appendChild(tree);
     }
 
-    // About modal functionality
+    // Languages that contain HTML/XML-like syntax and need entity encoding
+const languagesNeedingHtmlEncoding = ['html', 'xml', 'svg', 'jsx', 'tsx', 'vue', 'php', 'jsp', 'ejs', 'handlebars', 'pug', 'haml', 'slim', 'twig', 'liquid', 'blade', 'razor', 'soy', 'velocity', 'rhtml'];
+
+// Function to check if a language needs HTML encoding
+function needsHtmlEncoding(language) {
+    return languagesNeedingHtmlEncoding.includes(getPrismLanguage(language));
+}
+
+// Function to encode HTML entities
+function encodeHtmlEntities(text) {
+    return text.replace(/&/g, '&amp;')
+               .replace(/</g, '&lt;')
+               .replace(/>/g, '&gt;')
+               .replace(/"/g, '&quot;')
+               .replace(/'/g, '&#39;');
+}
     const aboutBtn = document.getElementById('about-btn');
     const aboutModal = document.getElementById('about-modal');
     const closeAboutModal = document.getElementById('close-about-modal');

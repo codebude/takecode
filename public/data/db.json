@@ -95,6 +95,18 @@
       "updatedAt": 1693526400000,
       "index": 7,
       "icon": "settings"
+    },
+    {
+      "name": "XML",
+      "parentId": null,
+      "isOpen": false,
+      "isSystem": false,
+      "defaultLanguage": "xml",
+      "id": "xml-folder",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000,
+      "index": 8,
+      "icon": "code"
     }
   ],
   "snippets": [
@@ -501,6 +513,24 @@
       "id": "git-hooks",
       "createdAt": 1693526400000,
       "updatedAt": 1693526400000
+    },
+    {
+      "isDeleted": false,
+      "isFavorites": false,
+      "folderId": "xml-folder",
+      "tagsIds": ["xml-tag", "build-tag"],
+      "description": "Apache Ant build configuration for Java projects with compilation, testing, and packaging. Credits: https://ant.apache.org/manual/",
+      "name": "Apache Ant Build Configuration",
+      "content": [
+        {
+          "label": "build.xml",
+          "language": "xml",
+          "value": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<project name=\"MyProject\" default=\"build\" basedir=\".\" xmlns:ivy=\"antlib:org.apache.ivy.ant\">\n\n  <!-- Project properties -->\n  <property name=\"src.dir\" value=\"src\"/>\n  <property name=\"build.dir\" value=\"build\"/>\n  <property name=\"classes.dir\" value=\"${build.dir}/classes\"/>\n  <property name=\"jar.dir\" value=\"${build.dir}/jar\"/>\n  <property name=\"lib.dir\" value=\"lib\"/>\n  <property name=\"test.dir\" value=\"test\"/>\n  <property name=\"test.classes.dir\" value=\"${build.dir}/test-classes\"/>\n  <property name=\"reports.dir\" value=\"${build.dir}/reports\"/>\n  <property name=\"javadoc.dir\" value=\"${build.dir}/javadoc\"/>\n\n  <!-- Classpath for compilation -->\n  <path id=\"compile.classpath\">\n    <fileset dir=\"${lib.dir}\">\n      <include name=\"*.jar\"/>\n    </fileset>\n  </path>\n\n  <!-- Clean build directory -->\n  <target name=\"clean\" description=\"Clean build directory\">\n    <delete dir=\"${build.dir}\"/>\n  </target>\n\n  <!-- Create build directories -->\n  <target name=\"init\" depends=\"clean\" description=\"Create build directories\">\n    <mkdir dir=\"${classes.dir}\"/>\n    <mkdir dir=\"${jar.dir}\"/>\n    <mkdir dir=\"${test.classes.dir}\"/>\n    <mkdir dir=\"${reports.dir}\"/>\n    <mkdir dir=\"${javadoc.dir}\"/>\n  </target>\n\n  <!-- Compile main source -->\n  <target name=\"compile\" depends=\"init\" description=\"Compile main source\">\n    <javac srcdir=\"${src.dir}\" destdir=\"${classes.dir}\" classpathref=\"compile.classpath\" includeantruntime=\"false\">\n      <compilerarg value=\"-Xlint:all\"/>\n      <compilerarg value=\"-Xlint:-serial\"/>\n    </javac>\n  </target>\n\n  <!-- Compile test source -->\n  <target name=\"compile-tests\" depends=\"compile\" description=\"Compile test source\">\n    <javac srcdir=\"${test.dir}\" destdir=\"${test.classes.dir}\" classpathref=\"compile.classpath\" includeantruntime=\"false\">\n      <classpath>\n        <pathelement location=\"${classes.dir}\"/>\n        <fileset dir=\"${lib.dir}\">\n          <include name=\"junit*.jar\"/>\n        </fileset>\n      </classpath>\n    </javac>\n  </target>\n\n  <!-- Run unit tests -->\n  <target name=\"test\" depends=\"compile-tests\" description=\"Run unit tests\">\n    <junit printsummary=\"yes\" haltonfailure=\"yes\">\n      <classpath>\n        <pathelement location=\"${classes.dir}\"/>\n        <pathelement location=\"${test.classes.dir}\"/>\n        <fileset dir=\"${lib.dir}\">\n          <include name=\"junit*.jar\"/>\n        </fileset>\n      </classpath>\n      <formatter type=\"plain\"/>\n      <batchtest fork=\"yes\" todir=\"${reports.dir}\">\n        <fileset dir=\"${test.dir}\">\n          <include name=\"**/*Test.java\"/>\n        </fileset>\n      </batchtest>\n    </junit>\n  </target>\n\n  <!-- Create JAR file -->\n  <target name=\"jar\" depends=\"compile\" description=\"Create JAR file\">\n    <jar destfile=\"${jar.dir}/${ant.project.name}.jar\" basedir=\"${classes.dir}\">\n      <manifest>\n        <attribute name=\"Main-Class\" value=\"com.example.Main\"/>\n        <attribute name=\"Class-Path\" value=\".\"/>\n      </manifest>\n    </jar>\n  </target>\n\n  <!-- Generate Javadoc -->\n  <target name=\"javadoc\" depends=\"compile\" description=\"Generate Javadoc\">\n    <javadoc sourcepath=\"${src.dir}\" destdir=\"${javadoc.dir}\" classpathref=\"compile.classpath\"\n             author=\"true\" version=\"true\" use=\"true\" windowtitle=\"${ant.project.name} API\">\n      <doctitle><![CDATA[<h1>${ant.project.name}</h1>]]></doctitle>\n      <bottom><![CDATA[<i>Copyright &#169; 2023 My Company. All Rights Reserved.</i>]]></bottom>\n      <link href=\"https://docs.oracle.com/javase/8/docs/api/\"/>\n    </javadoc>\n  </target>\n\n  <!-- Run the application -->\n  <target name=\"run\" depends=\"jar\" description=\"Run the application\">\n    <java jar=\"${jar.dir}/${ant.project.name}.jar\" fork=\"true\"/>\n  </target>\n\n  <!-- Full build with tests -->\n  <target name=\"build\" depends=\"test,jar\" description=\"Full build with tests\"/>\n\n  <!-- Deploy target (placeholder) -->\n  <target name=\"deploy\" depends=\"build\" description=\"Deploy application\">\n    <echo message=\"Deploying ${ant.project.name}...\"/>\n    <!-- Add deployment logic here -->\n  </target>\n\n</project>"
+        }
+      ],
+      "id": "ant-build",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
     }
   ],
   "tags": [
@@ -669,6 +699,18 @@
     {
       "name": "hooks",
       "id": "hooks-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "xml",
+      "id": "xml-tag",
+      "createdAt": 1693526400000,
+      "updatedAt": 1693526400000
+    },
+    {
+      "name": "build",
+      "id": "build-tag",
       "createdAt": 1693526400000,
       "updatedAt": 1693526400000
     }
