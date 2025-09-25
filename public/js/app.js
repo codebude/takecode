@@ -172,6 +172,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 loadMoreIfNeeded();
             }, 100);
             renderTree(data.folders, activeSnippets);
+
+            // Update total snippets count
+            document.getElementById('total-snippets').textContent = `${activeSnippets.length} snippets`;
         })
         .catch(error => {
             console.error('Error loading db.json:', error);
