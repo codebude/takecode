@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }));
             
             // Show message about minimum length
-            searchInfoBar.innerHTML = `Search term too short (minimum ${minLength} characters)`;
+            searchInfoBar.innerHTML = `⚠️ Search term too short (minimum ${minLength} characters)`;
             searchInfoBar.classList.remove('hidden');
         } else {
             // Filter snippets and determine which tab should be active
@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
             
-            searchInfoBar.innerHTML = `${totalMatches} match${totalMatches !== 1 ? 'es' : ''} found in ${snippetCount} snippet${snippetCount !== 1 ? 's' : ''}`;
+            searchInfoBar.innerHTML = `ℹ️ ${totalMatches} match${totalMatches !== 1 ? 'es' : ''} found in ${snippetCount} snippet${snippetCount !== 1 ? 's' : ''}`;
             searchInfoBar.classList.remove('hidden');
         }
 
