@@ -266,8 +266,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (hasMatch) {
+                    const limit = window.TAKECODE_CONFIG?.SEARCH_HIGHLIGHT_LIMIT ?? 3;
+                    let highlightCount = { value: 0 };
                     snippet.activeTabIndex = activeTabIndex;
-                    snippet.highlightedContent = highlightedContent;
+                    snippet.highlightedContent = highlightedContent.map(content => ({
+                        ...content,
+                        highlightedValue: highlightSearchMatches(content.value, query, highlightCount, limit)
+                    }));
+                    snippet.highlightedName = highlightSearchMatches(snippet.name, query, highlightCount, limit);
+                    snippet.highlightedDescription = snippet.description ? highlightSearchMatches(snippet.description, query, highlightCount, limit) : null;
                     return true;
                 }
                 return false;
@@ -277,9 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 highlightedContent: snippet.highlightedContent || snippet.content.map(content => ({
                     ...content,
                     highlightedValue: content.value
-                })),
-                highlightedName: highlightSearchMatches(snippet.name, query),
-                highlightedDescription: snippet.description ? highlightSearchMatches(snippet.description, query) : null
+                }))
             }));
 
             currentSnippets = filteredSnippets;
@@ -433,18 +438,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to highlight search matches in text
-    function highlightSearchMatches(text, query) {
+    function highlightSearchMatches(text, query, highlightCount, limit) {
         if (!query.trim()) return text;
 
-        const highlightLimit = window.TAKECODE_CONFIG?.SEARCH_HIGHLIGHT_LIMIT ?? 3;
+        const effectiveLimit = limit !== undefined ? limit : -1;
+        const effectiveHighlightCount = highlightCount || { value: 0 };
 
         try {
             // Try to use the query as a regex pattern
             const regex = new RegExp(`(${query})`, 'g'); // case-sensitive, global
-            let matchCount = 0;
             return text.replace(regex, (match, group1) => {
-                matchCount++;
-                if (highlightLimit === -1 || matchCount <= highlightLimit) {
+                if (effectiveLimit === -1 || effectiveHighlightCount.value < effectiveLimit) {
+                    effectiveHighlightCount.value++;
                     return `<mark class="search-highlight">${group1}</mark>`;
                 }
                 return group1; // Return without highlighting for matches beyond limit
@@ -453,10 +458,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // If regex is invalid, escape special characters and search as literal string
             const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             const regex = new RegExp(`(${escapedQuery})`, 'g');
-            let matchCount = 0;
             return text.replace(regex, (match, group1) => {
-                matchCount++;
-                if (highlightLimit === -1 || matchCount <= highlightLimit) {
+                if (effectiveLimit === -1 || effectiveHighlightCount.value < effectiveLimit) {
+                    effectiveHighlightCount.value++;
                     return `<mark class="search-highlight">${group1}</mark>`;
                 }
                 return group1; // Return without highlighting for matches beyond limit
