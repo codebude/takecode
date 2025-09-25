@@ -11,6 +11,10 @@ ENV VERSION=${VERSION}
 # Copy the public directory contents to the nginx html directory
 COPY public/ /usr/share/nginx/html/
 
+# Copy entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # Create symlink for cleaner volume mounting
 RUN ln -s /data /usr/share/nginx/html/data
 
@@ -23,5 +27,5 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Expose port 80
 EXPOSE 80
 
-# Start nginx with envsubst to inject environment variables
-CMD ["/bin/sh", "-c", "envsubst '${SEARCH_HIGHLIGHT_LIMIT}' < /usr/share/nginx/html/index.html > /usr/share/nginx/html/index.html.tmp && mv /usr/share/nginx/html/index.html.tmp /usr/share/nginx/html/index.html && nginx -g 'daemon off;'"]
+# Start the application
+CMD ["/entrypoint.sh"]
