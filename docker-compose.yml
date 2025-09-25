@@ -8,4 +8,5 @@ services:
       - ./db.json:/data/db.json:ro
     #environment:
     #  - SEARCH_HIGHLIGHT_LIMIT=3
+    #  - SEARCH_TERM_MIN_LENGTH=1
     restart: unless-stopped

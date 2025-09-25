@@ -131,6 +131,29 @@ environment:
 # No environment variable needed
 ```
 
+#### SEARCH_TERM_MIN_LENGTH
+
+Controls the minimum length of search terms required to perform a search.
+
+- **Default**: `1` (match from first character on)
+- **Range**: `1` to `9007199254740991` (JavaScript's `Number.MAX_SAFE_INTEGER`)
+- **Behavior**: If the search term is shorter than this search will not be executed
+
+**Examples:**
+
+```yaml
+# Require at least 2 characters for search
+environment:
+  - SEARCH_TERM_MIN_LENGTH=2
+
+# Require at least 3 characters for search
+environment:
+  - SEARCH_TERM_MIN_LENGTH=3
+
+# No minimum length (default)
+# No environment variable needed
+```
+
 ### Manual Docker Run
 
 ```bash

@@ -5,6 +5,16 @@ All notable changes to **takeCode** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.7] - 2025-01-09
+
+### Added
+- **Minimum Search Term Length**: Added `SEARCH_TERM_MIN_LENGTH` environment variable to set minimum character requirement for search terms (default: 0, no minimum)
+
+### Technical Details
+- Added configurable minimum search term length with validation and user feedback
+- Updated configuration system to support new environment variable across all deployment methods
+- Enhanced search input handler to enforce minimum length requirements
+
 ## [1.0.6] - 2025-09-20
 
 ### Fixed

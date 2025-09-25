@@ -220,6 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const query = e.target.value;
         const activeSnippets = dbData.snippets.filter(s => !s.isDeleted);
+        const minLength = window.TAKECODE_CONFIG?.SEARCH_TERM_MIN_LENGTH ?? 1;
 
         if (query.trim() === '') {
             // No search query - show all snippets with first tab active and no highlighting
@@ -236,6 +237,22 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Hide search info bar when no search is active
             searchInfoBar.classList.add('hidden');
+        } else if (query.trim().length < minLength) {
+            // Search term too short - show all snippets without highlighting
+            currentSnippets = activeSnippets.map(snippet => ({
+                ...snippet,
+                activeTabIndex: 0, // Always show first tab when no search
+                highlightedContent: snippet.content.map(content => ({
+                    ...content,
+                    highlightedValue: content.value // No highlighting
+                })),
+                highlightedName: snippet.name,
+                highlightedDescription: snippet.description
+            }));
+            
+            // Show message about minimum length
+            searchInfoBar.innerHTML = `Search term too short (minimum ${minLength} characters)`;
+            searchInfoBar.classList.remove('hidden');
         } else {
             // Filter snippets and determine which tab should be active
             const filteredSnippets = activeSnippets.filter(snippet => {

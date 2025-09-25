@@ -70,7 +70,8 @@
     <script>
         // Set global config from environment variables
         window.TAKECODE_CONFIG = {
-            SEARCH_HIGHLIGHT_LIMIT: parseInt('${SEARCH_HIGHLIGHT_LIMIT}') || 3
+            SEARCH_HIGHLIGHT_LIMIT: parseInt('${SEARCH_HIGHLIGHT_LIMIT}') || 3,
+            SEARCH_TERM_MIN_LENGTH: Math.max(1, parseInt('${SEARCH_TERM_MIN_LENGTH}') || 1)
         };
 
         // Keyboard shortcuts
