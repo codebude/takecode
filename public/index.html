@@ -75,6 +75,8 @@
             if (e.ctrlKey && e.key === 'k') {
                 e.preventDefault();
                 document.getElementById('search').focus();
+            } else if (e.key === 'Escape' && document.activeElement === document.getElementById('search')) {
+                clearSearch();
             }
         });
     </script>
