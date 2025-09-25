@@ -28,7 +28,7 @@
             </button>
         </div>
         <div class="relative w-full sm:w-auto mt-2 sm:mt-0 flex-shrink">
-            <input type="text" id="search" placeholder="Enter RegEx..." class="w-full sm:w-64 px-3 py-2 pr-8 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 transition-colors">
+            <input type="text" id="search" placeholder="Enter RegEx... (Ctrl+K to focus)" class="w-full sm:w-64 px-3 py-2 pr-8 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 transition-colors">
             <button id="clear-search" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors" onclick="clearSearch()" style="display: none;">×</button>
         </div>
     </header>
@@ -69,6 +69,14 @@
         window.TAKECODE_CONFIG = {
             SEARCH_HIGHLIGHT_LIMIT: parseInt('${SEARCH_HIGHLIGHT_LIMIT}') || 3
         };
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('search').focus();
+            }
+        });
     </script>
     <script type="module" src="js/app.js?v=__VERSION__"></script>
 
