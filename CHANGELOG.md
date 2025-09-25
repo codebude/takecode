@@ -5,16 +5,24 @@ All notable changes to **takeCode** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.7] - 2025-09-25
+## [1.1.0] - 2025-09-25
 
 ### Added
-- **Minimum Search Term Length**: Added `SEARCH_TERM_MIN_LENGTH` environment variable to set minimum character requirement for search terms (default: 0, no minimum)
+- **Minimum Search Term Length**: Added `SEARCH_TERM_MIN_LENGTH` environment variable to set minimum character requirement for search terms (default: 1, no minimum)
 - **Docker Development Script**: Added `npm run docker:dev` script for easy development Docker Compose setup
 - **UI Feedback Improvements**: Added warning/info emojis to search feedback messages for better user experience
+- **Keyboard Shortcuts**: Added Ctrl+K to focus search box and Esc to clear search input
+- **Clickable Logo**: Made header logo clickable to reload the page
+- **Title/Description Highlighting**: Added search match highlighting to snippet titles and descriptions
+- **Version Information**: Added total snippets count display below version info with improved styling
+
+### Fixed
+- **Search Highlight Limiting**: Fixed `SEARCH_HIGHLIGHT_LIMIT` to apply per snippet instead of per text block
 
 ### Changed
 - **Docker Shutdown Optimization**: Improved container shutdown speed from ~10 seconds to ~0.5 seconds using signal handling
 - **NPM Script Consistency**: Fixed npm script naming to use `:` for namespacing (`build-css:prod`)
+- **Docker Configuration**: Extracted Docker CMD into separate entrypoint.sh script for cleaner Dockerfile
 
 ### Technical Details
 - Added configurable minimum search term length with validation and user feedback
@@ -22,6 +30,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced search input handler to enforce minimum length requirements
 - Added signal handling to entrypoint.sh for faster container shutdown using `nginx -s stop`
 - Fixed npm script naming consistency (build-css:prod, version:sync, docker:dev)
+- Implemented keyboard event handlers for search shortcuts
+- Added search highlighting to snippet metadata (names, descriptions)
+- Corrected highlight limit application to work per snippet rather than per text fragment
 
 ## [1.0.6] - 2025-09-20
 
