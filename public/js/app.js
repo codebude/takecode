@@ -171,7 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 loadMoreIfNeeded();
             }, 100);
-            renderTree(data.folders, activeSnippets);
+            const snippetsForTree = activeSnippets.map(snippet => {
+                const found = currentSnippets.find(s => s.id === snippet.id);
+                return found ? { ...snippet, highlightedName: found.highlightedName } : snippet;
+            });
+            renderTree(data.folders, snippetsForTree);
 
             // Update total snippets count
             document.getElementById('total-snippets').textContent = `${activeSnippets.length} snippets`;
@@ -225,7 +229,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 highlightedContent: snippet.content.map(content => ({
                     ...content,
                     highlightedValue: content.value // No highlighting
-                }))
+                })),
+                highlightedName: snippet.name,
+                highlightedDescription: snippet.description
             }));
             
             // Hide search info bar when no search is active
@@ -271,7 +277,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 highlightedContent: snippet.highlightedContent || snippet.content.map(content => ({
                     ...content,
                     highlightedValue: content.value
-                }))
+                })),
+                highlightedName: highlightSearchMatches(snippet.name, query),
+                highlightedDescription: snippet.description ? highlightSearchMatches(snippet.description, query) : null
             }));
 
             currentSnippets = filteredSnippets;
@@ -467,7 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const title = document.createElement('h2');
             title.className = 'text-xl font-semibold text-gray-800 mb-2 dark:text-white';
-            title.textContent = snippet.name;
+            title.innerHTML = snippet.highlightedName || snippet.name;
             snippetDiv.appendChild(title);
 
             if (snippet.tagsIds.length > 0) {
@@ -488,7 +496,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (snippet.description) {
                 const desc = document.createElement('p');
                 desc.className = 'text-gray-600 mb-2 dark:text-gray-300';
-                desc.textContent = snippet.description;
+                desc.innerHTML = snippet.highlightedDescription || snippet.description;
                 snippetDiv.appendChild(desc);
             }
 
@@ -678,7 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     folder.snippets.forEach(snippet => {
                         const snippetLi = document.createElement('li');
                         snippetLi.className = 'snippet-item';
-                        snippetLi.textContent = snippet.name;
+                        snippetLi.innerHTML = snippet.highlightedName || snippet.name;
                         snippetLi.dataset.snippetId = snippet.id;
                         subUl.appendChild(snippetLi);
                     });
