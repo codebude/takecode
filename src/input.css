@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom utilities */
+@layer utilities {
+  .text-version-info {
+    font-size: 12px;
+    font-weight: 300;
+  }
+}
+
 /* Custom styles for tree and sidebar */
 #sidebar.sidebar-hidden {
     width: 0;
