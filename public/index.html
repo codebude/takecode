@@ -11,7 +11,7 @@
 <body class="bg-gray-100 font-sans flex flex-col h-screen dark:bg-gray-900 transition-colors">
     <header class="bg-white text-gray-900 p-4 flex flex-wrap items-center justify-between gap-2 dark:bg-gray-900 dark:text-white transition-colors border-b border-gray-200 dark:border-gray-700">
         <button id="sidebar-toggle" onclick="toggleSidebar()" class="bg-gray-200 text-gray-900 text-xl p-2 hover:bg-gray-300 rounded transition-colors dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 flex-shrink-0" type="button">☰</button>
-        <div class="flex items-center space-x-3 ml-4 min-w-0 flex-shrink">
+        <a href="/" class="flex items-center space-x-3 ml-4 min-w-0 flex-shrink bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity text-current no-underline">
             <svg class="w-8 h-8 flex-shrink-0" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8 6L24 6C25.1046 6 26 6.89543 26 8V24C26 25.1046 25.1046 26 24 26H8C6.89543 26 6 25.1046 6 24V8C6 6.89543 6.89543 6 8 6Z" fill="#60A5FA" stroke="#3B82F6" stroke-width="2"/>
                 <path d="M10 12L22 12" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
@@ -21,7 +21,7 @@
                 <path d="M18 10L14 14" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
             </svg>
             <h1 class="text-2xl font-bold truncate">takeCode</h1>
-        </div>
+        </a>
         <div class="flex items-center space-x-2 ml-auto flex-shrink-0">
             <button id="theme-toggle" class="bg-gray-200 text-gray-900 p-2 rounded hover:bg-gray-300 transition-colors dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 flex-shrink-0" title="Toggle theme">
                 🌓
